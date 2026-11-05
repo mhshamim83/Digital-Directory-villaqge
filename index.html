@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>জোড়া দক্ষিণপাড়া ডিজিটাল ডিরেক্টরি</title>
-  <!-- Google Fonts: Hind Siliguri for beautiful Bangla typography -->
+  <!-- Google Fonts: Hind Siliguri for clean Bangla typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons for clean UI icons -->
+  <!-- FontAwesome Icons for modern icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script>
@@ -39,7 +39,6 @@
     body {
       font-family: 'Hind Siliguri', sans-serif;
     }
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -77,7 +76,7 @@
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <!-- Brand & Village Info -->
+        <!-- Village Info -->
         <div class="flex items-center gap-3.5">
           <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-600/25 ring-2 ring-emerald-500/20 shrink-0">
             <i class="fa-solid fa-tree-city text-2xl"></i>
@@ -93,10 +92,15 @@
 
         <!-- Action Buttons -->
         <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <button onclick="refreshDataFromSheet()" id="syncDataBtn" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium transition flex items-center gap-2 hover:shadow-sm" title="গুগল শিট থেকে নতুন তথ্য রিফ্রেশ করুন">
+            <i class="fa-solid fa-arrows-rotate text-emerald-600" id="syncIcon"></i>
+            <span class="hidden sm:inline">রিফ্রেশ</span>
+          </button>
+
           <button onclick="openSheetModal()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100/70 hover:bg-slate-200/80 text-slate-700 text-sm font-medium transition flex items-center gap-2 hover:shadow-sm">
             <i class="fa-solid fa-table text-emerald-600"></i>
             <span class="hidden sm:inline">গুগল শিট</span> সংযোগ
-            <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-500 ml-0.5" title="লোকাল মোড সক্রিয়"></span>
+            <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-500 ml-0.5" title="স্ট্যাটাস"></span>
           </button>
 
           <button onclick="exportToCSV()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium transition flex items-center gap-2 hover:shadow-sm" title="এক্সেল/CSV ডাউনলোড করুন">
@@ -163,7 +167,7 @@
     <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm space-y-3">
       <div class="flex flex-col md:flex-row gap-2.5 md:items-center md:justify-between">
         
-        <!-- Live Search Bar -->
+        <!-- Search Input -->
         <div class="relative flex-1">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
             <i class="fa-solid fa-magnifying-glass text-sm"></i>
@@ -225,7 +229,7 @@
             <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
           </div>
 
-          <!-- View Mode Toggle (Card vs Table) -->
+          <!-- View Mode Toggle -->
           <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shrink-0">
             <button id="viewGridBtn" onclick="switchView('grid')" class="p-1 px-2 rounded-lg text-xs font-medium text-emerald-700 bg-white shadow-xs transition" title="কার্ড ভিউ">
               <i class="fa-solid fa-grip"></i>
@@ -237,33 +241,30 @@
         </div>
       </div>
       
-      <!-- Quick Tag Pills for Fast Filtering -->
+      <!-- Quick Tag Pills -->
       <div class="flex items-center gap-1.5 overflow-x-auto pt-1 pb-0.5 text-xs text-slate-600 no-scrollbar">
-        <span class="text-slate-400 shrink-0 mr-1"><i class="fa-solid fa-bolt text-amber-500"></i> দ্রুত ফিল্টার:</span>
+        <span class="text-slate-400 shrink-0 mr-1"><i class="fa-solid fa-bolt text-amber-500"></i> ফিল্টার:</span>
         <button onclick="setCategoryFilter('')" class="quick-pill active px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-medium hover:bg-emerald-200 transition shrink-0" data-val="">সবগুলো</button>
         <button onclick="setCategoryFilter('govt_all')" class="quick-pill px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition shrink-0" data-val="govt_all">🏛️ সরকারি চাকরিজীবী</button>
         <button onclick="setCategoryFilter('govt_retired')" class="quick-pill px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition shrink-0" data-val="govt_retired">🎖️ অবসরপ্রাপ্ত (পেনশনার)</button>
         <button onclick="setCategoryFilter('youth_only')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0" data-val="youth_only">⚡ যুবসমাজ</button>
-        <button onclick="setBloodFilter('O+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="O+">🩸 O+ রক্ত</button>
-        <button onclick="setBloodFilter('B+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="B+">🩸 B+ রক্ত</button>
-        <button onclick="setBloodFilter('A+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="A+">🩸 A+ রক্ত</button>
+        <button onclick="setBloodFilter('O+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="O+">🩸 O+</button>
+        <button onclick="setBloodFilter('B+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="B+">🩸 B+</button>
+        <button onclick="setBloodFilter('A+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="A+">🩸 A+</button>
       </div>
     </div>
 
-    <!-- Showing Results Count & Density Notice -->
+    <!-- Results Count -->
     <div class="flex items-center justify-between text-xs text-slate-500 px-1">
       <div id="resultCountText">প্রদর্শন করা হচ্ছে ০ জনের তথ্য</div>
       <div id="pageInfoText" class="font-medium text-slate-600">পৃষ্ঠা ১ / ১</div>
     </div>
 
-    <!-- ================= DATA LIST CONTAINERS ================= -->
-    
-    <!-- COMPACT HIGH-DENSITY CARD VIEW CONTAINER -->
+    <!-- Card View Container -->
     <div id="cardViewContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3.5">
-      <!-- Member Cards Rendered by JS -->
     </div>
 
-    <!-- ENHANCED HIGH-DENSITY TABLE VIEW CONTAINER -->
+    <!-- Table View Container -->
     <div id="tableViewContainer" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs text-slate-700">
@@ -278,7 +279,6 @@
             </tr>
           </thead>
           <tbody id="tableBody" class="divide-y divide-slate-100">
-            <!-- Table rows rendered by JS -->
           </tbody>
         </table>
       </div>
@@ -286,10 +286,9 @@
 
     <!-- Pagination Controls -->
     <div id="paginationBar" class="flex items-center justify-center gap-2 pt-2 pb-4">
-      <!-- Generated by JS -->
     </div>
 
-    <!-- Empty State Message -->
+    <!-- Empty State -->
     <div id="emptyState" class="hidden bg-white rounded-2xl border border-dashed border-slate-300 p-10 text-center space-y-3">
       <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto text-xl">
         <i class="fa-regular fa-folder-open"></i>
@@ -361,7 +360,7 @@
                   <i class="fa-regular fa-trash-can mr-1"></i>মুছুন
                 </button>
               </div>
-              <p class="text-[11px] text-slate-400">মোবাইল থেকে বা গ্যালারি থেকে যেকোনো ছবি আপলোড করা যাবে</p>
+              <p class="text-[11px] text-slate-400">মোবাইল ক্যামেরা বা গ্যালারি থেকে ছবি আপলোড করা যাবে</p>
               <input type="file" id="photoFileInput" accept="image/*" onchange="handlePhotoSelect(event)" class="hidden">
               <input type="hidden" id="formPhotoBase64" value="">
             </div>
@@ -403,7 +402,7 @@
                 name="designation" 
                 id="formDesignation" 
                 required 
-                placeholder="উদাঃ শিক্ষক / কৃষি কর্মকর্তা / হিসাবরক্ষক" 
+                placeholder="উদাঃ শিক্ষক / কৃষি কর্মকর্তা / ব্যবসায়ী" 
                 class="w-full pl-10 pr-3 py-2 bg-slate-50 text-sm rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
               >
             </div>
@@ -528,7 +527,7 @@
           </div>
         </div>
 
-        <!-- Para / Neighborhood (Optional) -->
+        <!-- Neighborhood -->
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">
             পাড়া / মহল্লা / বাড়ি (ঐচ্ছিক)
@@ -592,12 +591,31 @@
 
       <div class="p-6 space-y-5 max-h-[80vh] overflow-y-auto text-sm text-slate-700">
         
+        <!-- Quick Copy Headers Section -->
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list text-emerald-600"></i> গুগল শিটের হেডার (কপি করে শিটের ১ নম্বর সারিতে দিন)
+            </span>
+            <button type="button" onclick="copySheetHeaders()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1">
+              <i class="fa-regular fa-copy"></i>
+              <span id="copyHeadersBtnText">হেডার কপি করুন</span>
+            </button>
+          </div>
+          <div class="p-2.5 bg-white rounded-xl border border-emerald-200/80 font-mono text-xs text-slate-700 overflow-x-auto whitespace-nowrap select-all shadow-inner" id="headersRowBox">
+            Timestamp	Name	Designation	Phone	IsYouth	BloodGroup	IsGovt	GovtStatus	GovtDept	Address	Photo	Status	DeathDate
+          </div>
+          <p class="text-[11px] text-emerald-800 leading-normal">
+            💡 <strong>টিপস:</strong> উপরের <b>"হেডার কপি করুন"</b> বাটনে চাপ দিয়ে গুগল শিটের <code>A1</code> ঘরে ক্লিক করে <kbd class="px-1.5 py-0.5 bg-emerald-100 rounded border border-emerald-300 font-mono text-[10px]">Ctrl + V</kbd> (অথবা মোবাইলে Paste) করলেই প্রতি কলামে আলাদা আলাদা বসে যাবে।
+          </p>
+        </div>
+
         <!-- Status Info Banner -->
         <div id="sheetStatusBanner" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
           <i class="fa-solid fa-circle-info text-emerald-600 mt-0.5"></i>
           <div class="text-xs space-y-1">
-            <p class="font-semibold text-slate-800">বর্তমানে তথ্যগুলো আপনার ব্রাউজারে সুরক্ষিত রয়েছে।</p>
-            <p class="text-slate-500">গুগল শিটের সাথে যুক্ত করলে যে কেউ ওয়েবসাইটে তথ্য এন্ট্রি দিলে তা সরাসরি আপনার পার্সোনাল গুগল শিটে যোগ হয়ে যাবে।</p>
+            <p class="font-semibold text-slate-800">বর্তমানে তথ্যগুলো সরাসরি আপনার গুগল শিটের সাথে সিঙ্ক হয়।</p>
+            <p class="text-slate-500">যে কেউ ওয়েবসাইটে তথ্য এন্ট্রি দিলে তা আপনার শিটে জমা হবে এবং যে কোনো মোবাইল থেকেই স্বয়ংক্রিয়ভাবে লাইভ দেখা যাবে।</p>
           </div>
         </div>
 
@@ -606,54 +624,113 @@
           <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">
             ১. আপনার Google Apps Script Web App URL দিন:
           </label>
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <input 
               type="url" 
               id="sheetWebhookUrl" 
               placeholder="https://script.google.com/macros/s/.../exec" 
               class="flex-1 px-3.5 py-2.5 bg-slate-50 text-xs sm:text-sm rounded-xl border border-slate-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition font-mono"
             >
-            <button 
-              onclick="saveSheetUrl()" 
-              class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition shrink-0"
-            >
-              সংরক্ষণ
-            </button>
+            <div class="flex items-center gap-2">
+              <button 
+                type="button"
+                onclick="testSheetConnection()" 
+                id="testConnectionBtn"
+                class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition shrink-0 flex items-center gap-1.5"
+              >
+                <i class="fa-solid fa-plug-circle-check text-emerald-600"></i>
+                <span id="testBtnText">টেস্ট করুন</span>
+              </button>
+              <button 
+                onclick="saveSheetUrl()" 
+                class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition shrink-0"
+              >
+                সংরক্ষণ
+              </button>
+            </div>
           </div>
-          <p class="text-[11px] text-slate-500">URL খালি রেখে সেভ করলে লোকাল মোডে ফেরত যাবে।</p>
+          <div id="testResultMsg" class="hidden text-xs px-3 py-2 rounded-xl mt-1.5"></div>
+          <p class="text-[11px] text-slate-500">URL-এর শেষে অবশ্যই <code class="bg-slate-100 px-1 py-0.5 rounded text-rose-600">/exec</code> থাকতে হবে।</p>
         </div>
 
         <!-- Step 2: How to setup guide -->
         <div class="border-t border-slate-200 pt-4 space-y-3">
           <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
-            <span>২. গুগল শিটে স্ক্রিপ্ট তৈরি করার নিয়ম (মাত্র ২ মিনিট):</span>
+            <span>২. গুগল শিটে স্ক্রিপ্ট তৈরি করার নিয়ম (Read + Write উভয় সুবিধা):</span>
           </h4>
           <ol class="list-decimal list-inside space-y-1.5 text-xs text-slate-600 leading-relaxed">
-            <li>একটি নতুন <strong>Google Sheet</strong> খুলুন এবং প্রথম সারিতে হেডার দিন: <code class="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">Timestamp | Name | Designation | Phone | IsYouth | BloodGroup | IsGovt | GovtStatus | GovtDept | Address</code></li>
-            <li>উপরের মেনু থেকে <strong>Extensions > Apps Script</strong>-এ যান।</li>
+            <li>আপনার গুগল শিটের <strong>Extensions > Apps Script</strong>-এ যান।</li>
             <li>সেখানে থাকা সব কোড মুছে নিচের কোডটি পেস্ট করুন:</li>
           </ol>
 
           <!-- Apps Script Code Box -->
           <div class="relative">
-            <pre class="bg-slate-900 text-slate-200 text-[11px] p-3.5 rounded-xl font-mono overflow-x-auto max-h-48 border border-slate-800 leading-relaxed">
+            <pre class="bg-slate-900 text-slate-200 text-[11px] p-3.5 rounded-xl font-mono overflow-x-auto max-h-56 border border-slate-800 leading-relaxed">
+// ১. গুগল শিট থেকে ওয়েবসাইটে তথ্য পাঠানো (Read Data for any mobile)
+function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows = sheet.getDataRange().getValues();
+    var data = [];
+    
+    // ১ম সারি হেডার, তাই ২য় সারি (i=1) থেকে পড়া শুরু হবে
+    for (var i = 1; i < rows.length; i++) {
+      var r = rows[i];
+      if (!r[1] && !r[3]) continue; // নাম বা ফোন না থাকলে বাদ
+      
+      data.push({
+        id: 'gs_' + i,
+        createdAt: r[0] ? r[0].toString() : '',
+        name: r[1] ? r[1].toString() : '',
+        designation: r[2] ? r[2].toString() : '',
+        phone: r[3] ? r[3].toString() : '',
+        isYouth: (r[4] === 'হ্যাঁ' || r[4] === true),
+        bloodGroup: r[5] ? r[5].toString() : 'জানা নেই',
+        isGovtEmployee: (r[6] === 'হ্যাঁ' || r[6] === true),
+        govtStatus: (r[7] === 'অবসরপ্রাপ্ত' ? 'retired' : 'active'),
+        govtDept: r[8] ? r[8].toString() : '',
+        address: r[9] ? r[9].toString() : '',
+        photo: r[10] ? r[10].toString() : '',
+        isDeceased: (r[11] === 'মরহুম/প্রয়াত'),
+        deathDate: r[12] ? r[12].toString() : ''
+      });
+    }
+    
+    data.reverse();
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success", 
+      members: data
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error", 
+      error: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ২. ওয়েবসাইট থেকে গুগল শিটে নতুন তথ্য জমা নেওয়া (Save Data)
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = JSON.parse(e.postData.contents);
     
-    // নতুন রো হিসেবে ডেটা ইনসার্ট করা
     sheet.appendRow([
       new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
-      data.name,
-      data.designation,
-      data.phone,
+      data.name || '',
+      data.designation || '',
+      data.phone || '',
       data.isYouth ? 'হ্যাঁ' : 'না',
       data.bloodGroup || '',
       data.isGovtEmployee ? 'হ্যাঁ' : 'না',
       data.govtStatus === 'retired' ? 'অবসরপ্রাপ্ত' : (data.isGovtEmployee ? 'কর্মরত' : ''),
       data.govtDept || '',
-      data.address || ''
+      data.address || '',
+      data.photo || '',
+      data.isDeceased ? 'মরহুম/প্রয়াত' : 'জীবিত',
+      data.deathDate || ''
     ]);
     
     return ContentService.createTextOutput(JSON.stringify({
@@ -664,7 +741,7 @@ function doPost(e) {
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({
       status: "error", 
-      message: err.toString()
+      error: err.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }</pre>
@@ -674,11 +751,11 @@ function doPost(e) {
             </button>
           </div>
 
-          <ol start="4" class="list-decimal list-inside space-y-1 text-xs text-slate-600">
-            <li>Apps Script এ ডান পাশের <strong>Deploy > New deployment</strong> বাটনে ক্লিক করুন।</li>
-            <li>Select type হিসেবে <strong>Web app</strong> নির্বাচন করুন।</li>
-            <li><em>Who has access</em> অপশনটিতে অবশ্যই <strong>"Anyone" (যে কেউ)</strong> নির্বাচন করবেন।</li>
-            <li>তারপর Deploy করে প্রাপ্ত <strong>Web app URL</strong> কপি করে উপরে বসিয়ে সেভ করুন!</li>
+          <ol start="3" class="list-decimal list-inside space-y-1 text-xs text-slate-600">
+            <li>কোড পেস্ট করার পর উপরে <strong>Save (💾)</strong> করুন।</li>
+            <li>তারপর ডানদিকের উপরে <strong>Deploy > Manage deployments</strong>-এ যান।</li>
+            <li>পেন্সিল আইকনে (Edit) চাপ দিয়ে Version অপশনে <strong>New version</strong> সিলেক্ট করুন।</li>
+            <li><strong>Who has access: "Anyone"</strong> নিশ্চিত করে <strong>Deploy</strong>-এ চাপ দিন।</li>
           </ol>
         </div>
 
@@ -700,93 +777,12 @@ function doPost(e) {
 
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    // Initial sample data for "জোড়া দক্ষিণপাড়া" village with photos & govt status
-    const initialSampleData = [
-      {
-        id: '1',
-        name: 'মাওলানা মোঃ রফিকুল ইসলাম',
-        designation: 'প্রধান শিক্ষক',
-        phone: '01711223344',
-        isYouth: false,
-        bloodGroup: 'A+',
-        address: 'উত্তরপাড়া, জামে মসজিদ সংলগ্ন',
-        isGovtEmployee: true,
-        govtStatus: 'retired',
-        govtDept: 'মাধ্যমিক শিক্ষা অধিদপ্তর',
-        photo: '',
-        createdAt: '2026-10-12'
-      },
-      {
-        id: '2',
-        name: 'তানভীর আহমেদ শুভ',
-        designation: 'সফটওয়্যার ইঞ্জিনিয়ার ও যুবসমাজ সদস্য',
-        phone: '01819998877',
-        isYouth: true,
-        bloodGroup: 'O+',
-        address: 'মধ্যপাড়া, মিয়াবাড়ি',
-        isGovtEmployee: false,
-        govtStatus: 'active',
-        govtDept: '',
-        photo: '',
-        createdAt: '2026-11-01'
-      },
-      {
-        id: '3',
-        name: 'মোঃ আব্দুল কুদ্দুস',
-        designation: 'কৃষক ও সমবায় সভাপতি',
-        phone: '01912345678',
-        isYouth: false,
-        bloodGroup: 'B+',
-        address: 'দক্ষিণপাড়া বিল পাড়',
-        isGovtEmployee: false,
-        govtStatus: 'active',
-        govtDept: '',
-        photo: '',
-        createdAt: '2026-09-18'
-      },
-      {
-        id: '4',
-        name: 'সাকিব আল হাসান',
-        designation: 'বিশ্ববিদ্যালয় শিক্ষার্থী',
-        phone: '01622334455',
-        isYouth: true,
-        bloodGroup: 'AB+',
-        address: 'পূর্বপাড়া স্কুল রোড',
-        isGovtEmployee: false,
-        govtStatus: 'active',
-        govtDept: '',
-        photo: '',
-        createdAt: '2026-11-04'
-      },
-      {
-        id: '5',
-        name: 'মোঃ হেলাল উদ্দিন',
-        designation: 'সহকারী প্রকৌশলী',
-        phone: '01755667788',
-        isYouth: false,
-        bloodGroup: 'B+',
-        address: 'দক্ষিণপাড়া বাজার',
-        isGovtEmployee: true,
-        govtStatus: 'active',
-        govtDept: 'এলজিইডি (LGED)',
-        photo: '',
-        createdAt: '2026-10-25'
-      },
-      {
-        id: '6',
-        name: 'মাহমুদুল হাসান নাহিদ',
-        designation: 'পলিটেকনিক শিক্ষার্থী',
-        phone: '01300112233',
-        isYouth: true,
-        bloodGroup: 'O-',
-        address: 'দক্ষিণপাড়া মোড়',
-        isGovtEmployee: false,
-        govtStatus: 'active',
-        govtDept: '',
-        photo: '',
-        createdAt: '2026-11-05'
-      }
-    ];
+    // =========================================================================
+    // 👇👇👇 আপনার গুগল স্ক্রিপ্ট (Web App) লিংকটি নিচের কোটেশনের (" ") ভেতর পেস্ট করুন 👇👇👇
+    // =========================================================================
+    const HARDCODED_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx25qUFbPd9MhZHJdbc2HxVOH_w224sp1ApUFVxDLpjll98OkIJwIhG0asHbNaHXWbn/exec"; 
+    // উদাহরণ: const HARDCODED_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx12345/exec";
+    // =========================================================================
 
     // App state
     let members = [];
@@ -796,14 +792,19 @@ function doPost(e) {
     let itemsPerPage = 50;
 
     // Initialize application
-    window.addEventListener('DOMContentLoaded', () => {
-      loadStoredData();
-      updateStats();
-      renderMembers();
+    window.addEventListener('DOMContentLoaded', async () => {
+      loadStoredConfig();
       checkGoogleSheetConnection();
+      
+      // গুগল শিট কানেক্ট থাকলে স্বয়ংক্রিয়ভাবে লাইভ ডাটা লোড হবে
+      if (googleSheetUrl && googleSheetUrl.startsWith('http')) {
+        await fetchMembersFromSheet();
+      } else {
+        loadFallbackData();
+      }
     });
 
-    // Helper: Client-side photo resize & compression to Base64
+    // Client-side photo resize & compression to Base64
     function handlePhotoSelect(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -853,58 +854,131 @@ function doPost(e) {
       const placeholder = document.getElementById('photoPlaceholderIcon');
       const removeBtn = document.getElementById('removePhotoBtn');
 
-      previewImg.src = base64;
-      previewImg.classList.remove('hidden');
-      placeholder.classList.add('hidden');
-      removeBtn.classList.remove('hidden');
+      if (base64) {
+        previewImg.src = base64;
+        previewImg.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        removeBtn.classList.remove('hidden');
+      } else {
+        previewImg.src = '';
+        previewImg.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        removeBtn.classList.add('hidden');
+      }
     }
 
     function removeSelectedPhoto() {
-      document.getElementById('formPhotoBase64').value = '';
       document.getElementById('photoFileInput').value = '';
-      const previewImg = document.getElementById('photoPreviewImg');
-      const placeholder = document.getElementById('photoPlaceholderIcon');
-      const removeBtn = document.getElementById('removePhotoBtn');
-
-      previewImg.src = '';
-      previewImg.classList.add('hidden');
-      placeholder.classList.remove('hidden');
-      removeBtn.classList.add('hidden');
+      setPhotoPreview('');
     }
 
-    // Toggle Government Job Section in modal
-    function toggleGovtFields(isChecked) {
+    // Toggle government employee subfields
+    function toggleGovtFields(isGovt) {
       const container = document.getElementById('govtDetailsContainer');
-      if (isChecked) {
+      if (isGovt) {
         container.classList.remove('hidden');
       } else {
         container.classList.add('hidden');
       }
     }
 
-    // Helper: Generate clean avatar
-    function getAvatarElement(photoUrl, name, sizeClass = 'w-10 h-10', textSize = 'text-xs') {
-      const initial = name ? name.trim().charAt(0) : 'ন';
-      if (photoUrl && photoUrl.trim().length > 0) {
+    // Generate responsive Avatar element
+    function getAvatarElement(photoUrl, name, sizeClass = 'w-10 h-10', textClass = 'text-xs') {
+      const initial = (name && name.trim().length > 0) ? name.trim().charAt(0) : 'ন';
+      if (photoUrl && photoUrl.startsWith('data:image')) {
         return `
-          <div class="${sizeClass} rounded-full overflow-hidden border border-slate-200 shadow-xs shrink-0 cursor-pointer" onclick="openPhotoLightbox('${escapeAttr(photoUrl)}', '${escapeAttr(name)}')">
-            <img src="${escapeAttr(photoUrl)}" alt="${escapeAttr(name)}" class="w-full h-full object-cover">
+          <div class="${sizeClass} rounded-full overflow-hidden bg-slate-100 ring-2 ring-emerald-500/20 shrink-0 cursor-pointer shadow-xs" onclick="previewImagePopup('${escapeHtml(photoUrl)}', '${escapeHtml(name)}')">
+            <img src="${photoUrl}" alt="${escapeHtml(name)}" class="w-full h-full object-cover">
           </div>
         `;
       }
       return `
-        <div class="${sizeClass} rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold ${textSize} flex items-center justify-center shrink-0 border border-emerald-300/30 select-none">
+        <div class="${sizeClass} rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold ${textClass} flex items-center justify-center shrink-0 ring-2 ring-emerald-500/20 shadow-xs">
           ${initial}
         </div>
       `;
     }
 
-    function escapeAttr(str) {
-      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    // Quick popup to view full image
+    function previewImagePopup(imgSrc, name) {
+      if (!imgSrc) return;
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop';
+      modal.innerHTML = `
+        <div class="bg-white rounded-3xl p-4 max-w-sm w-full shadow-2xl space-y-3 border border-slate-200">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-sm text-slate-800">${escapeHtml(name)}</h4>
+            <button onclick="this.closest('.modal-backdrop').remove()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="w-full aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+            <img src="${imgSrc}" class="w-full h-full object-cover">
+          </div>
+        </div>
+      `;
+      modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+      };
+      document.body.appendChild(modal);
     }
 
-    // Load data from LocalStorage
-    function loadStoredData() {
+    // Initial demo data if sheet has not loaded yet
+    const initialSampleData = [
+      {
+        id: "1",
+        name: "মোঃ আবদুর রশিদ",
+        designation: "অবসরপ্রাপ্ত প্রধান শিক্ষক",
+        phone: "01711000001",
+        isYouth: false,
+        isGovtEmployee: true,
+        govtStatus: "retired",
+        govtDept: "শিক্ষা বিভাগ",
+        bloodGroup: "A+",
+        address: "স্কুল রোড, দক্ষিণপাড়া",
+        photo: ""
+      },
+      {
+        id: "2",
+        name: "তানভীর হাসান শুভ",
+        designation: "সফটওয়্যার ডেভেলপার",
+        phone: "01822000002",
+        isYouth: true,
+        isGovtEmployee: false,
+        govtStatus: "",
+        govtDept: "",
+        bloodGroup: "O+",
+        address: "পূর্ব পাড়া",
+        photo: ""
+      },
+      {
+        id: "3",
+        name: "ড. মাহমুদুল হক",
+        designation: "উপজেলা কৃষি কর্মকর্তা",
+        phone: "01933000003",
+        isYouth: false,
+        isGovtEmployee: true,
+        govtStatus: "active",
+        govtDept: "কৃষি সম্প্রসারণ অধিদপ্তর",
+        bloodGroup: "B+",
+        address: "মধ্য পাড়া",
+        photo: ""
+      }
+    ];
+
+    // Load config from LocalStorage or Hardcoded constant
+    function loadStoredConfig() {
+      const storedUrl = localStorage.getItem('jora_sheet_webhook_url');
+      googleSheetUrl = HARDCODED_GOOGLE_SHEET_URL || storedUrl || '';
+
+      const sheetInput = document.getElementById('sheetWebhookUrl');
+      if (sheetInput && googleSheetUrl) {
+        sheetInput.value = googleSheetUrl;
+      }
+    }
+
+    // Load fallback data if sheet is not configured
+    function loadFallbackData() {
       const stored = localStorage.getItem('jora_members_data');
       if (stored) {
         try {
@@ -914,14 +988,51 @@ function doPost(e) {
         }
       } else {
         members = initialSampleData;
-        saveMembersLocally();
+      }
+      updateStats();
+      renderMembers();
+    }
+
+    // FETCH LIVE MEMBERS DATA FROM GOOGLE SHEETS
+    async function fetchMembersFromSheet(showSuccessToast = false) {
+      if (!googleSheetUrl || !googleSheetUrl.startsWith('http')) {
+        loadFallbackData();
+        return;
       }
 
-      googleSheetUrl = localStorage.getItem('jora_sheet_webhook_url') || '';
-      const sheetInput = document.getElementById('sheetWebhookUrl');
-      if (sheetInput && googleSheetUrl) {
-        sheetInput.value = googleSheetUrl;
+      const syncIcon = document.getElementById('syncIcon');
+      if (syncIcon) syncIcon.classList.add('fa-spin');
+
+      try {
+        const response = await fetch(googleSheetUrl);
+        const result = await response.json();
+
+        if (result && result.status === 'success' && Array.isArray(result.members)) {
+          if (result.members.length > 0) {
+            members = result.members;
+            localStorage.setItem('jora_members_data', JSON.stringify(members));
+          } else {
+            loadFallbackData();
+          }
+          if (showSuccessToast) {
+            showToast('সিঙ্ক সফল', 'গুগল শিট থেকে সর্বশেষ তথ্য আপডেট হয়েছে!', 'success');
+          }
+        } else {
+          loadFallbackData();
+        }
+      } catch (err) {
+        console.warn('Could not fetch directly from sheet, using cached data:', err);
+        loadFallbackData();
+      } finally {
+        if (syncIcon) syncIcon.classList.remove('fa-spin');
+        updateStats();
+        renderMembers();
       }
+    }
+
+    // Manual Refresh button trigger
+    async function refreshDataFromSheet() {
+      await fetchMembersFromSheet(true);
     }
 
     // Save to LocalStorage
@@ -960,7 +1071,7 @@ function doPost(e) {
       renderMembers();
     }
 
-    // Render Members (handles Grid & Table views with high-density & pagination)
+    // Render Members
     function renderMembers() {
       const query = document.getElementById('searchInput').value.trim().toLowerCase();
       const bloodFilter = document.getElementById('bloodFilter').value;
@@ -1041,7 +1152,7 @@ function doPost(e) {
       renderPagination(totalPages);
     }
 
-    // Member Card Component (Compact Modern Design with Avatar)
+    // Member Card Component
     function createMemberCard(m) {
       const bloodBadge = m.bloodGroup && m.bloodGroup !== 'জানা নেই' 
         ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
@@ -1097,7 +1208,7 @@ function doPost(e) {
               </div>
             </div>
 
-            <!-- Avatar & Name/Designation -->
+            <!-- Avatar & Details -->
             <div class="flex items-start gap-2.5">
               ${avatar}
               <div class="min-w-0 flex-1">
@@ -1127,7 +1238,7 @@ function doPost(e) {
       `;
     }
 
-    // Member Table Row Component (Compact Modern Design with Avatar)
+    // Member Table Row Component
     function createMemberTableRow(m) {
       const blood = m.bloodGroup && m.bloodGroup !== 'জানা নেই' 
         ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
@@ -1291,13 +1402,13 @@ function doPost(e) {
         createdAt: new Date().toISOString()
       };
 
-      // 1. Immediately store in local list
+      // 1. লোকাল স্ক্রিনে সাথে সাথে যুক্ত করা
       members.unshift(newMember);
       saveMembersLocally();
       currentPage = 1;
       renderMembers();
 
-      // 2. Post to Google Sheet if Webhook URL is set
+      // 2. গুগল শিটে ডেটা পাঠানো
       let syncedWithSheet = false;
       if (googleSheetUrl && googleSheetUrl.startsWith('http')) {
         try {
@@ -1310,12 +1421,15 @@ function doPost(e) {
             body: JSON.stringify(newMember)
           });
           syncedWithSheet = true;
+          
+          setTimeout(() => {
+            fetchMembersFromSheet(false);
+          }, 1500);
         } catch (err) {
           console.warn('Google Sheet Sync Error:', err);
         }
       }
 
-      // Finish & Reset
       submitBtn.disabled = false;
       spinner.classList.add('hidden');
       closeAddModal();
@@ -1325,8 +1439,8 @@ function doPost(e) {
       toggleBloodRequirement(true);
 
       const msg = syncedWithSheet 
-        ? 'তথ্য সফলভাবে যুক্ত হয়েছে এবং গুগল শিটে পাঠানো হয়েছে!' 
-        : 'তথ্য সফলভাবে ডিরেক্টরিতে যুক্ত হয়েছে!';
+        ? 'তথ্য সফলভাবে যুক্ত হয়েছে এবং গুগল শিটে সংরক্ষিত হয়েছে! যে কোনো ডিভাইস থেকে এটি এখন দেখা যাবে।' 
+        : 'তথ্য সফলভাবে যুক্ত হয়েছে!';
       showToast('সফল হয়েছে', msg, 'success');
     }
 
@@ -1438,11 +1552,59 @@ function doPost(e) {
     // Google Sheets URL Management
     function saveSheetUrl() {
       const urlInput = document.getElementById('sheetWebhookUrl').value.trim();
+      
+      if (urlInput && !urlInput.includes('script.google.com/macros/s/')) {
+        showToast('ভুল লিঙ্ক', 'দয়া করে Apps Script Web App URL দিন, সাধারণ গুগল শিট লিঙ্ক নয়!', 'error');
+        return;
+      }
+
       googleSheetUrl = urlInput;
       localStorage.setItem('jora_sheet_webhook_url', urlInput);
       checkGoogleSheetConnection();
-      showToast('সংরক্ষিত', 'গুগল শিট সেটিংস আপডেট করা হয়েছে।', 'success');
+      showToast('সংরক্ষিত', 'গুগল শিট লিঙ্ক সেভ করা হয়েছে। ডাটা লোড হচ্ছে...', 'success');
       closeSheetModal();
+      fetchMembersFromSheet(true);
+    }
+
+    // Test connection directly from browser
+    async function testSheetConnection() {
+      const url = document.getElementById('sheetWebhookUrl').value.trim();
+      const testMsg = document.getElementById('testResultMsg');
+      const testBtnText = document.getElementById('testBtnText');
+
+      if (!url) {
+        testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-rose-50 text-rose-700 border border-rose-200 block';
+        testMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> আগে একটি URL ফিল্ডে পেস্ট করুন!';
+        return;
+      }
+
+      if (!url.includes('script.google.com/macros/s/') || !url.endsWith('/exec')) {
+        testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-rose-50 text-rose-700 border border-rose-200 block';
+        testMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> এটি সঠিক Web App URL নয়। URL-এর শেষে অবশ্যই <strong>/exec</strong> থাকতে হবে।';
+        return;
+      }
+
+      testBtnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> টেস্ট হচ্ছে...';
+      testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-amber-50 text-amber-800 border border-amber-200 block';
+      testMsg.innerHTML = '<i class="fa-solid fa-satellite-dish mr-1"></i> গুগল শিটের সাথে সংযোগ পরীক্ষা করা হচ্ছে...';
+
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (result && result.status === 'success') {
+          testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 block';
+          testMsg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> <strong>কানেকশন শতভাগ সফল!</strong> গুগল শিট থেকে তথ্য পড়ার অনুমতি সক্রিয় আছে (বর্তমানে শিটে ${toBengaliNumber(result.members.length)} জনের তথ্য রয়েছে)।`;
+        } else {
+          testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 block';
+          testMsg.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> কানেকশন কাজ করছে!';
+        }
+      } catch (err) {
+        testMsg.className = 'text-xs px-3 py-2 rounded-xl mt-1.5 bg-rose-50 text-rose-700 border border-rose-200 block';
+        testMsg.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> কানেকশন ব্যর্থ হয়েছে। Apps Script এ নতুন কোডটি পেস্ট করার পর <strong>Deploy > Manage deployments > Edit > New version</strong> দিয়ে আবার Deploy করুন এবং Who has access <strong>Anyone</strong> দিন।';
+      } finally {
+        testBtnText.textContent = 'টেস্ট করুন';
+      }
     }
 
     function checkGoogleSheetConnection() {
@@ -1458,24 +1620,78 @@ function doPost(e) {
       }
     }
 
+    // Copy Google Sheet Headers in TSV/Tab format
+    function copySheetHeaders() {
+      const headers = "Timestamp\tName\tDesignation\tPhone\tIsYouth\tBloodGroup\tIsGovt\tGovtStatus\tGovtDept\tAddress\tPhoto\tStatus\tDeathDate";
+      const textarea = document.createElement('textarea');
+      textarea.value = headers;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      const btnText = document.getElementById('copyHeadersBtnText');
+      btnText.textContent = 'কপি হয়েছে!';
+      setTimeout(() => {
+        btnText.textContent = 'হেডার কপি করুন';
+      }, 2000);
+      showToast('হেডার কপি হয়েছে', 'গুগল শিটের A1 সেলে গিয়ে Paste (Ctrl+V) করুন। প্রতিটি কলামে আলাদা বসে যাবে।', 'success');
+    }
+
     // Copy Apps Script snippet helper
     function copyScriptCode() {
-      const code = `function doPost(e) {
+      const code = `function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows = sheet.getDataRange().getValues();
+    var data = [];
+    
+    for (var i = 1; i < rows.length; i++) {
+      var r = rows[i];
+      if (!r[1] && !r[3]) continue;
+      
+      data.push({
+        id: 'gs_' + i,
+        createdAt: r[0] ? r[0].toString() : '',
+        name: r[1] ? r[1].toString() : '',
+        designation: r[2] ? r[2].toString() : '',
+        phone: r[3] ? r[3].toString() : '',
+        isYouth: (r[4] === 'হ্যাঁ' || r[4] === true),
+        bloodGroup: r[5] ? r[5].toString() : 'জানা নেই',
+        isGovtEmployee: (r[6] === 'হ্যাঁ' || r[6] === true),
+        govtStatus: (r[7] === 'অবসরপ্রাপ্ত' ? 'retired' : 'active'),
+        govtDept: r[8] ? r[8].toString() : '',
+        address: r[9] ? r[9].toString() : '',
+        photo: r[10] ? r[10].toString() : '',
+        isDeceased: (r[11] === 'মরহুম/প্রয়াত'),
+        deathDate: r[12] ? r[12].toString() : ''
+      });
+    }
+    data.reverse();
+    return ContentService.createTextOutput(JSON.stringify({status: "success", members: data})).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({status: "error", error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = JSON.parse(e.postData.contents);
     sheet.appendRow([
       new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
-      data.name,
-      data.designation,
-      data.phone,
+      data.name || '',
+      data.designation || '',
+      data.phone || '',
       data.isYouth ? 'হ্যাঁ' : 'না',
       data.bloodGroup || '',
       data.isGovtEmployee ? 'হ্যাঁ' : 'না',
       data.govtStatus === 'retired' ? 'অবসরপ্রাপ্ত' : (data.isGovtEmployee ? 'কর্মরত' : ''),
       data.govtDept || '',
       data.address || '',
-      data.photo || ''
+      data.photo || '',
+      data.isDeceased ? 'মরহুম/প্রয়াত' : 'জীবিত',
+      data.deathDate || ''
     ]);
     return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
@@ -1494,10 +1710,10 @@ function doPost(e) {
       setTimeout(() => {
         copyLabel.textContent = 'কপি করুন';
       }, 2000);
-      showToast('কপি সম্পন্ন', 'আপডেট করা গুগল অ্যাপস স্ক্রিপ্ট কোডটি কপি করা হয়েছে।', 'success');
+      showToast('কপি সম্পন্ন', 'গুগল স্ক্রিপ্ট কোডটি কপি করা হয়েছে।', 'success');
     }
 
-    // Export Data as CSV (includes Govt & Pensioner fields)
+    // Export Data as CSV
     function exportToCSV() {
       if (members.length === 0) {
         showToast('সতর্কতা', 'রপ্তানি করার মতো কোনো তথ্য নেই।', 'error');
