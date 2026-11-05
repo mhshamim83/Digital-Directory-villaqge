@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>জোড়া দক্ষিণপাড়া ডিজিটাল ডিরেক্টরি</title>
+  <!-- Google Fonts: Hind Siliguri for beautiful Bangla typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons for clean UI icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script>
@@ -25,6 +28,7 @@
               600: '#059669',
               700: '#047857',
               800: '#065f46',
+              900: '#064e3b',
             }
           }
         }
@@ -32,59 +36,75 @@
     }
   </script>
   <style>
-    body { font-family: 'Hind Siliguri', sans-serif; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #f8fafc; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    .modal-backdrop { background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(6px); }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .modal-backdrop {
+      background-color: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-bangla antialiased selection:bg-emerald-500 selection:text-white">
 
-  <!-- টোস্ট নোটিফিকেশন -->
+  <!-- ================= TOP NOTIFICATION TOAST ================= -->
   <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700">
     <div id="toastIcon" class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
       <i class="fa-solid fa-check text-sm"></i>
     </div>
     <div>
       <h4 id="toastTitle" class="text-sm font-semibold">সফল হয়েছে</h4>
-      <p id="toastMessage" class="text-xs text-slate-300">তথ্যটি সফলভাবে আপডেট হয়েছে।</p>
+      <p id="toastMessage" class="text-xs text-slate-300">তথ্যটি সফলভাবে যুক্ত হয়েছে।</p>
     </div>
   </div>
 
-  <!-- হেডার সেকশন -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+  <!-- ================= HEADER SECTION ================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Brand & Village Info -->
         <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-600 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-600/20 ring-2 ring-emerald-500/20 shrink-0">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-600/25 ring-2 ring-emerald-500/20 shrink-0">
             <i class="fa-solid fa-tree-city text-2xl"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">জোড়া দক্ষিণপাড়া</h1>
-              <span class="bg-emerald-100 text-emerald-800 text-[11px] px-2.5 py-0.5 rounded-full font-semibold border border-emerald-200">ডিজিটাল ডিরেক্টরি</span>
+              <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium border border-emerald-200">ডিজিটাল ডিরেক্টরি</span>
             </div>
-            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">গ্রামের সকল নাগরিকের তথ্য ও জরুরি সেবায় নিবেদিত প্ল্যাটফর্ম</p>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">গ্রামের সকল নাগরিকের তথ্য, জরুরি যোগাযোগ ও রক্তের প্রয়োজনে এক প্ল্যাটফর্ম</p>
           </div>
         </div>
 
+        <!-- Action Buttons -->
         <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
-          <button onclick="fetchSheetData(true)" id="syncDataBtn" class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-medium transition flex items-center gap-2 shadow-xs">
-            <i class="fa-solid fa-arrows-rotate text-emerald-600" id="syncIcon"></i>
-            <span class="hidden sm:inline">রিফ্রেশ</span>
-          </button>
-
-          <button onclick="openSheetConfigModal()" class="px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-medium transition flex items-center gap-2 shadow-xs">
+          <button onclick="openSheetModal()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100/70 hover:bg-slate-200/80 text-slate-700 text-sm font-medium transition flex items-center gap-2 hover:shadow-sm">
             <i class="fa-solid fa-table text-emerald-600"></i>
             <span class="hidden sm:inline">গুগল শিট</span> সংযোগ
-            <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-500 ml-0.5"></span>
+            <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-500 ml-0.5" title="লোকাল মোড সক্রিয়"></span>
           </button>
 
-          <button onclick="openAddMemberModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-emerald-600/20 hover:shadow-lg transition flex items-center gap-2 ml-auto sm:ml-0">
+          <button onclick="exportToCSV()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium transition flex items-center gap-2 hover:shadow-sm" title="এক্সেল/CSV ডাউনলোড করুন">
+            <i class="fa-solid fa-file-arrow-down text-slate-500"></i>
+            <span class="hidden sm:inline">ডাউনলোড</span>
+          </button>
+
+          <button onclick="openAddModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-sm font-semibold shadow-md shadow-emerald-600/20 hover:shadow-lg hover:shadow-emerald-600/30 transition flex items-center gap-2 ml-auto sm:ml-0">
             <i class="fa-solid fa-user-plus text-xs"></i>
             <span>তথ্য যোগ করুন</span>
           </button>
@@ -93,57 +113,57 @@
     </div>
   </header>
 
-  <!-- মূল কন্টেন্ট -->
+  <!-- ================= MAIN CONTENT ================= -->
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6">
 
-    <!-- পরিসংখ্যান বার -->
+    <!-- Status & Stat Counters Bar -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3.5 hover:border-emerald-200 transition">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3.5">
         <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
           <i class="fa-solid fa-users text-lg"></i>
         </div>
         <div>
-          <div class="text-xs text-slate-500 font-medium">মোট নাগরিক</div>
-          <div id="statTotal" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
+          <div class="text-xs text-slate-500 font-medium">মোট নথিভুক্ত</div>
+          <div id="statTotalMembers" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
         </div>
       </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3.5 hover:border-purple-200 transition">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3.5">
         <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
           <i class="fa-solid fa-building-columns text-lg"></i>
         </div>
         <div>
           <div class="text-xs text-slate-500 font-medium">সরকারি চাকরিজীবী</div>
-          <div id="statGovt" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
+          <div id="statGovtCount" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
         </div>
       </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3.5 hover:border-rose-200 transition">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3.5">
         <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
           <i class="fa-solid fa-droplet text-lg"></i>
         </div>
         <div>
-          <div class="text-xs text-slate-500 font-medium">রক্তদাতা তালিকা</div>
-          <div id="statBlood" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
+          <div class="text-xs text-slate-500 font-medium">রক্তদাতা (ব্লাড গ্রুপ)</div>
+          <div id="statBloodDonors" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
         </div>
       </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3.5 hover:border-blue-200 transition">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3.5">
         <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
           <i class="fa-solid fa-person-running text-lg"></i>
         </div>
         <div>
-          <div class="text-xs text-slate-500 font-medium">যুবসমাজ</div>
-          <div id="statYouth" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
+          <div class="text-xs text-slate-500 font-medium">যুবসমাজ (Youth)</div>
+          <div id="statYouthCount" class="text-xl font-bold text-slate-900 mt-0.5">০</div>
         </div>
       </div>
     </div>
 
-    <!-- সার্চ ও ফিল্টারিং টুলবার -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs space-y-3.5">
-      <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+    <!-- Filter & Search Toolbar -->
+    <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm space-y-3">
+      <div class="flex flex-col md:flex-row gap-2.5 md:items-center md:justify-between">
         
-        <!-- সার্চ বক্স -->
+        <!-- Live Search Bar -->
         <div class="relative flex-1">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
             <i class="fa-solid fa-magnifying-glass text-sm"></i>
@@ -151,19 +171,20 @@
           <input 
             type="text" 
             id="searchInput"
-            oninput="applyFilters()"
-            placeholder="নাম, পদবী, মোবাইল নম্বর বা দপ্তর দিয়ে খুঁজুন..." 
-            class="w-full pl-9 pr-9 py-2.5 bg-slate-50 hover:bg-slate-100/60 focus:bg-white text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+            oninput="handleSearch()"
+            placeholder="নাম, পদবী, দপ্তর, ফোন বা রক্ত দিয়ে দ্রুত খুঁজুন..." 
+            class="w-full pl-9 pr-9 py-2 bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800 placeholder-slate-400"
           >
           <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600">
             <i class="fa-solid fa-circle-xmark text-sm"></i>
           </button>
         </div>
 
-        <!-- ফিল্টার ড্রপডাউন -->
+        <!-- Filter Selectors -->
         <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-          <div class="relative shrink-0 w-32">
-            <select id="bloodFilter" onchange="applyFilters()" class="w-full appearance-none bg-slate-50 text-slate-700 text-xs pl-3 pr-7 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 cursor-pointer">
+          <!-- Blood Group Filter -->
+          <div class="relative shrink-0 w-32 sm:w-36">
+            <select id="bloodFilter" onchange="handleSearch()" class="w-full appearance-none bg-slate-50 text-slate-700 text-xs pl-2.5 pr-7 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition cursor-pointer">
               <option value="">🩸 রক্ত (সকল)</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
@@ -177,675 +198,640 @@
             <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
           </div>
 
-          <div class="relative shrink-0 w-44">
-            <select id="categoryFilter" onchange="applyFilters()" class="w-full appearance-none bg-slate-50 text-slate-700 text-xs pl-3 pr-7 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 cursor-pointer">
+          <!-- Category/Govt Filter -->
+          <div class="relative shrink-0 w-44 sm:w-48">
+            <select id="categoryFilter" onchange="handleSearch()" class="w-full appearance-none bg-slate-50 text-slate-700 text-xs pl-2.5 pr-7 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition cursor-pointer">
               <option value="">সকল শ্রেণি / পেশা</option>
               <option value="govt_all">🏛️ সরকারি চাকরিজীবী (সকল)</option>
-              <option value="govt_active">🏛️ কর্মরত সরকারি</option>
-              <option value="govt_retired">🎖️ অবসরপ্রাপ্ত (পেনশনার)</option>
+              <option value="govt_active">🏛️ কর্মরত সরকারি চাকরিজীবী</option>
+              <option value="govt_retired">🎖️ অবসরপ্রাপ্ত সরকারি চাকরিজীবী</option>
               <option value="youth_only">⚡ যুবসমাজ</option>
-              <option value="deceased">🕊️ স্মরণীয় ব্যক্তিত্ব (মরহুম)</option>
+              <option value="শিক্ষক">শিক্ষক</option>
+              <option value="কৃষক">কৃষক</option>
+              <option value="ব্যবসায়ী">ব্যবসায়ী</option>
+              <option value="প্রবাসী">প্রবাসী</option>
             </select>
             <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
           </div>
 
-          <!-- ভিউ মোড টগল -->
+          <!-- Items Per Page -->
+          <div class="relative shrink-0 w-28 sm:w-32">
+            <select id="perPageSelect" onchange="changePerPage(this.value)" class="w-full appearance-none bg-slate-50 text-slate-700 text-xs pl-2.5 pr-7 py-2 rounded-xl border border-slate-200 focus:outline-none cursor-pointer">
+              <option value="30">প্রতি পেজে ৩০</option>
+              <option value="50" selected>প্রতি পেজে ৫০</option>
+              <option value="100">প্রতি পেজে ১০০</option>
+              <option value="all">সব একসাথে</option>
+            </select>
+            <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
+          </div>
+
+          <!-- View Mode Toggle (Card vs Table) -->
           <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shrink-0">
-            <button id="viewGridBtn" onclick="toggleView('grid')" class="p-1.5 px-2.5 rounded-lg text-xs font-semibold text-emerald-700 bg-white shadow-xs transition" title="কার্ড ভিউ">
+            <button id="viewGridBtn" onclick="switchView('grid')" class="p-1 px-2 rounded-lg text-xs font-medium text-emerald-700 bg-white shadow-xs transition" title="কার্ড ভিউ">
               <i class="fa-solid fa-grip"></i>
             </button>
-            <button id="viewTableBtn" onclick="toggleView('table')" class="p-1.5 px-2.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-700 transition" title="টেবিল ভিউ">
+            <button id="viewTableBtn" onclick="switchView('table')" class="p-1 px-2 rounded-lg text-xs font-medium text-slate-500 hover:text-slate-700 transition" title="কমপ্যাক্ট টেবিল ভিউ">
               <i class="fa-solid fa-table-list"></i>
             </button>
           </div>
         </div>
       </div>
       
-      <!-- দ্রুত ফিল্টার বাটন (Pills) -->
+      <!-- Quick Tag Pills for Fast Filtering -->
       <div class="flex items-center gap-1.5 overflow-x-auto pt-1 pb-0.5 text-xs text-slate-600 no-scrollbar">
-        <span class="text-slate-400 shrink-0 mr-1"><i class="fa-solid fa-bolt text-amber-500"></i> কুইক ফিল্টার:</span>
-        <button onclick="setFilterCategory('')" class="pill-btn active px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-medium hover:bg-emerald-200 transition shrink-0" data-filter="">সবগুলো</button>
-        <button onclick="setFilterCategory('govt_all')" class="pill-btn px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition shrink-0" data-filter="govt_all">🏛️ সরকারি চাকরিজীবী</button>
-        <button onclick="setFilterCategory('govt_retired')" class="pill-btn px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition shrink-0" data-filter="govt_retired">🎖️ অবসরপ্রাপ্ত (পেনশনার)</button>
-        <button onclick="setFilterCategory('youth_only')" class="pill-btn px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0" data-filter="youth_only">⚡ যুবসমাজ</button>
-        <button onclick="setFilterCategory('deceased')" class="pill-btn px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-slate-700" data-filter="deceased">🕊️ স্মরণীয় ব্যক্তিত্ব</button>
+        <span class="text-slate-400 shrink-0 mr-1"><i class="fa-solid fa-bolt text-amber-500"></i> দ্রুত ফিল্টার:</span>
+        <button onclick="setCategoryFilter('')" class="quick-pill active px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-medium hover:bg-emerald-200 transition shrink-0" data-val="">সবগুলো</button>
+        <button onclick="setCategoryFilter('govt_all')" class="quick-pill px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition shrink-0" data-val="govt_all">🏛️ সরকারি চাকরিজীবী</button>
+        <button onclick="setCategoryFilter('govt_retired')" class="quick-pill px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition shrink-0" data-val="govt_retired">🎖️ অবসরপ্রাপ্ত (পেনশনার)</button>
+        <button onclick="setCategoryFilter('youth_only')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0" data-val="youth_only">⚡ যুবসমাজ</button>
+        <button onclick="setBloodFilter('O+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="O+">🩸 O+ রক্ত</button>
+        <button onclick="setBloodFilter('B+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="B+">🩸 B+ রক্ত</button>
+        <button onclick="setBloodFilter('A+')" class="quick-pill px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-rose-600" data-val="A+">🩸 A+ রক্ত</button>
       </div>
     </div>
 
-    <!-- ফলাফল গণনা -->
+    <!-- Showing Results Count & Density Notice -->
     <div class="flex items-center justify-between text-xs text-slate-500 px-1">
-      <div id="resultCountText">তথ্য লোড হচ্ছে...</div>
+      <div id="resultCountText">প্রদর্শন করা হচ্ছে ০ জনের তথ্য</div>
+      <div id="pageInfoText" class="font-medium text-slate-600">পৃষ্ঠা ১ / ১</div>
     </div>
 
-    <!-- কার্ড ভিউ কনটেইনার -->
-    <div id="cardViewContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+    <!-- ================= DATA LIST CONTAINERS ================= -->
+    
+    <!-- COMPACT HIGH-DENSITY CARD VIEW CONTAINER -->
+    <div id="cardViewContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3.5">
+      <!-- Member Cards Rendered by JS -->
     </div>
 
-    <!-- টেবিল ভিউ কনটেইনার -->
-    <div id="tableViewContainer" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+    <!-- ENHANCED HIGH-DENSITY TABLE VIEW CONTAINER -->
+    <div id="tableViewContainer" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs text-slate-700">
-          <thead class="bg-slate-50 border-b border-slate-200 text-[11px] uppercase font-semibold text-slate-500">
+          <thead class="bg-slate-50 border-b border-slate-200 text-[11px] uppercase font-semibold text-slate-500 tracking-wider">
             <tr>
-              <th class="px-4 py-3">সদস্য</th>
-              <th class="px-4 py-3">পেশা / পদবী</th>
-              <th class="px-4 py-3">স্ট্যাটাস ও দপ্তর</th>
-              <th class="px-4 py-3">রক্ত</th>
-              <th class="px-4 py-3">ঠিকানা</th>
-              <th class="px-4 py-3 text-right">যোগাযোগ ও অ্যাকশন</th>
+              <th scope="col" class="px-4 py-3">নাম</th>
+              <th scope="col" class="px-4 py-3">পেশা / পদবী</th>
+              <th scope="col" class="px-4 py-3">সরকারি স্থিতি ও দপ্তর</th>
+              <th scope="col" class="px-4 py-3">রক্তের গ্রুপ</th>
+              <th scope="col" class="px-4 py-3">মহল্লা / পাড়া</th>
+              <th scope="col" class="px-4 py-3 text-right">মোবাইল নম্বর ও যোগাযোগ</th>
             </tr>
           </thead>
           <tbody id="tableBody" class="divide-y divide-slate-100">
+            <!-- Table rows rendered by JS -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- খালি অবস্থা (Empty State) -->
-    <div id="emptyState" class="hidden bg-white rounded-2xl border border-dashed border-slate-300 p-12 text-center space-y-3">
+    <!-- Pagination Controls -->
+    <div id="paginationBar" class="flex items-center justify-center gap-2 pt-2 pb-4">
+      <!-- Generated by JS -->
+    </div>
+
+    <!-- Empty State Message -->
+    <div id="emptyState" class="hidden bg-white rounded-2xl border border-dashed border-slate-300 p-10 text-center space-y-3">
       <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto text-xl">
         <i class="fa-regular fa-folder-open"></i>
       </div>
-      <h3 class="text-base font-semibold text-slate-700">কোনো তথ্য পাওয়া যায়নি</h3>
-      <p class="text-xs text-slate-500 max-w-sm mx-auto">আপনার সার্চের সাথে মিলছে না অথবা এখনও গুগল শিটে কোনো তথ্য যুক্ত করা হয়নি।</p>
+      <h3 class="text-base font-semibold text-slate-700">কোনো তথ্য খুঁজে পাওয়া যায়নি</h3>
+      <p class="text-sm text-slate-500 max-w-sm mx-auto">আপনার সার্চ বা ফিল্টারের সাথে মিলে এমন কোনো ব্যক্তি তালিকায় নেই। অন্য কি-ওয়ার্ড দিয়ে আবার চেষ্টা করুন।</p>
       <button onclick="resetFilters()" class="text-xs text-emerald-600 font-semibold hover:underline">ফিল্টার রিসেট করুন</button>
     </div>
 
   </main>
 
-  <!-- ফুটার -->
-  <footer class="bg-white border-t border-slate-200 mt-auto py-5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
       <div class="flex items-center gap-2">
         <i class="fa-solid fa-location-dot text-emerald-600"></i>
-        <span>গ্রাম: জোড়া দক্ষিণপাড়া, রানীরহাট, শাজাহানপুর, বগুড়া</span>
+        <span>গ্রাম: জোড়া দক্ষিণপাড়া | ঐক্য, মানবতা ও ডিজিটাল সেবায় নিবেদিত</span>
       </div>
-      <div>
-        <span>ডিজিটাল সিটিজেন ডিরেক্টরি প্ল্যাটফর্ম</span>
+      <div class="flex items-center gap-4">
+        <button onclick="openSheetModal()" class="hover:text-emerald-600 transition">গুগল শিট সেটাপ</button>
+        <span>•</span>
+        <span class="text-slate-400">তৈরি করা হয়েছে গ্রামের সুবিধার্থে</span>
       </div>
     </div>
   </footer>
 
-  <!-- তথ্য যোগ ও এডিট মডাল -->
-  <div id="memberModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop overflow-y-auto">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 my-8">
+  <!-- ================= ADD MEMBER MODAL ================= -->
+  <div id="addMemberModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 transform transition-all my-8">
+      
+      <!-- Modal Header -->
       <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-5 text-white flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
-            <i class="fa-solid fa-user-pen text-white text-lg" id="modalIcon"></i>
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-sm">
+            <i class="fa-solid fa-user-plus text-white text-lg"></i>
           </div>
           <div>
-            <h3 class="font-bold text-lg text-white" id="modalHeaderTitle">নাগরিক তথ্য যোগ করুন</h3>
-            <p class="text-xs text-emerald-100">সঠিক তথ্য দিয়ে ডিরেক্টরি সমৃদ্ধ রাখুন</p>
+            <h3 class="font-bold text-lg text-white">নতুন নাগরিক তথ্য যোগ করুন</h3>
+            <p class="text-xs text-emerald-100">সঠিক তথ্য দিয়ে ডিরেক্টরি সমৃদ্ধ করতে সাহায্য করুন</p>
           </div>
         </div>
-        <button onclick="closeMemberModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+        <button onclick="closeAddModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
 
+      <!-- Modal Form -->
       <form id="memberForm" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4">
-        <input type="hidden" id="editRowIndex" value="">
-
-        <!-- ছবি আপলোড ও প্রিভিউ -->
+        
+        <!-- Photo Upload Field with Live Preview -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">সদস্যের ছবি (ঐচ্ছিক)</label>
+          <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+            সদস্যের ছবি (ঐচ্ছিক)
+          </label>
           <div class="flex items-center gap-3.5">
-            <div class="relative w-16 h-16 rounded-2xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shrink-0">
-              <img id="photoPreviewImg" src="" alt="প্রিভিউ" class="w-full h-full object-cover hidden">
-              <span id="photoPlaceholder" class="text-slate-400 text-xl"><i class="fa-regular fa-image"></i></span>
+            <div class="relative w-16 h-16 rounded-2xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shrink-0 group">
+              <img id="photoPreviewImg" src="" alt="ছবি প্রিভিউ" class="w-full h-full object-cover hidden">
+              <span id="photoPlaceholderIcon" class="text-slate-400 text-xl">
+                <i class="fa-regular fa-image"></i>
+              </span>
             </div>
             <div class="flex-1 space-y-1">
               <div class="flex items-center gap-2">
-                <label for="photoInput" class="cursor-pointer px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition inline-flex items-center gap-1.5">
-                  <i class="fa-solid fa-camera text-slate-500"></i>
+                <label for="photoFileInput" class="cursor-pointer px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition inline-flex items-center gap-1.5">
+                  <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i>
                   <span>ছবি নির্বাচন করুন</span>
                 </label>
-                <button type="button" id="removePhotoBtn" onclick="removePhoto()" class="hidden px-2 py-1.5 rounded-xl text-rose-600 hover:bg-rose-50 text-xs transition">
-                  মুছুন
+                <button type="button" id="removePhotoBtn" onclick="removeSelectedPhoto()" class="hidden px-2.5 py-1.5 rounded-xl text-rose-600 hover:bg-rose-50 text-xs font-medium transition">
+                  <i class="fa-regular fa-trash-can mr-1"></i>মুছুন
                 </button>
               </div>
-              <input type="file" id="photoInput" accept="image/*" onchange="processPhotoUpload(this)" class="hidden">
-              <input type="hidden" id="photoBase64" value="">
-              <p class="text-[11px] text-slate-400">সর্বোচ্চ ২ MB সাইজের ছবি নির্বাচন করুন</p>
+              <p class="text-[11px] text-slate-400">মোবাইল থেকে বা গ্যালারি থেকে যেকোনো ছবি আপলোড করা যাবে</p>
+              <input type="file" id="photoFileInput" accept="image/*" onchange="handlePhotoSelect(event)" class="hidden">
+              <input type="hidden" id="formPhotoBase64" value="">
             </div>
           </div>
         </div>
 
-        <!-- নাম -->
+        <!-- Name Field -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">পূর্ণ নাম <span class="text-rose-500">*</span></label>
-          <input type="text" id="formName" required placeholder="উদাঃ মোঃ তারা সোনার" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+          <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+            পূর্ণ নাম <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+              <i class="fa-regular fa-user text-sm"></i>
+            </span>
+            <input 
+              type="text" 
+              name="name" 
+              id="formName" 
+              required 
+              placeholder="উদাঃ মোঃ রফিকুল ইসলাম" 
+              class="w-full pl-10 pr-3 py-2 bg-slate-50 text-sm rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
+            >
+          </div>
         </div>
 
-        <!-- পেশা / পদবী -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">পেশা বা পদবী <span class="text-rose-500">*</span></label>
-          <input type="text" id="formDesignation" required placeholder="উদাঃ হিসাব কর্মকর্তা / শিক্ষক / প্রকৌশলী" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
-        </div>
-
-        <!-- মোবাইল নম্বর ও যুবসমাজ -->
+        <!-- Designation / Occupation -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">মোবাইল নম্বর</label>
-            <input type="tel" id="formPhone" placeholder="017XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+              পেশা / ডেজিগনেশন <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                <i class="fa-solid fa-briefcase text-sm"></i>
+              </span>
+              <input 
+                type="text" 
+                name="designation" 
+                id="formDesignation" 
+                required 
+                placeholder="উদাঃ শিক্ষক / কৃষি কর্মকর্তা / হিসাবরক্ষক" 
+                class="w-full pl-10 pr-3 py-2 bg-slate-50 text-sm rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
+              >
+            </div>
           </div>
+
+          <!-- Mobile Phone -->
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">রক্তের গ্রুপ</label>
-            <select id="formBlood" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
-              <option value="জানা নেই">জানা নেই</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+              মোবাইল নাম্বার <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                <i class="fa-solid fa-phone text-sm"></i>
+              </span>
+              <input 
+                type="tel" 
+                name="phone" 
+                id="formPhone" 
+                required 
+                placeholder="০১XXXXXXXXX" 
+                pattern="^(?:\+88|88)?01[3-9]\d{8}$"
+                title="সঠিক ১১ ডিজিটের মোবাইল নম্বর লিখুন"
+                class="w-full pl-10 pr-3 py-2 bg-slate-50 text-sm rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
+              >
+            </div>
           </div>
         </div>
 
-        <!-- চেকবক্স: যুবসমাজ ও সরকারি চাকরিজীবী -->
-        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2.5">
-          <label class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700">
-            <input type="checkbox" id="formIsYouth" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500">
-            <span>তিনি কি যুবসমাজ (Youth) এর অন্তর্ভুক্ত?</span>
+        <!-- GOVERNMENT EMPLOYEE & PENSIONER SECTION -->
+        <div class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-200/80 space-y-3">
+          <div class="flex items-center justify-between">
+            <label for="formIsGovt" class="flex items-center gap-2 cursor-pointer select-none">
+              <input 
+                type="checkbox" 
+                name="isGovtEmployee" 
+                id="formIsGovt" 
+                onchange="toggleGovtFields(this.checked)"
+                class="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-slate-300"
+              >
+              <span class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
+                <i class="fa-solid fa-landmark text-purple-600"></i> সরকারি চাকরিজীবী?
+              </span>
+            </label>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 font-semibold">স্পেশাল প্রোফাইল</span>
+          </div>
+
+          <!-- Dynamic fields for govt employees -->
+          <div id="govtDetailsContainer" class="hidden space-y-2.5 pt-1 border-t border-purple-200/60">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-700 mb-1">
+                  স্থিতি (কর্মরত নাকি অবসরপ্রাপ্ত?) <span class="text-rose-500">*</span>
+                </label>
+                <select 
+                  id="formGovtStatus" 
+                  class="w-full px-3 py-1.5 bg-white text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
+                >
+                  <option value="active">🏛️ কর্মরত (Active)</option>
+                  <option value="retired">🎖️ অবসরপ্রাপ্ত (Pensioner)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-700 mb-1">
+                  দপ্তর / মন্ত্রণালয় / বিভাগ (ঐচ্ছিক)
+                </label>
+                <input 
+                  type="text" 
+                  id="formGovtDept" 
+                  placeholder="উদাঃ প্রাথমিক শিক্ষা / রেলপথ / স্বাস্থ্য"
+                  class="w-full px-3 py-1.5 bg-white text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Youth & Blood Group Section -->
+        <div class="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200/60 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label for="formIsYouth" class="flex items-center gap-2 cursor-pointer select-none">
+              <input 
+                type="checkbox" 
+                name="isYouth" 
+                id="formIsYouth" 
+                checked 
+                onchange="toggleBloodRequirement(this.checked)"
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300"
+              >
+              <span class="text-xs font-semibold text-slate-800">ব্যক্তিটি কি যুবসমাজের অন্তর্ভুক্ত? (Youth)</span>
+            </label>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 font-medium">রক্তদান ফোকাস</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
+              রক্তের গ্রুপ (ব্লাড গ্রুপ) <span id="bloodRequiredStar" class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-rose-500">
+                <i class="fa-solid fa-droplet text-xs"></i>
+              </span>
+              <select 
+                name="bloodGroup" 
+                id="formBloodGroup" 
+                required
+                class="w-full pl-9 pr-8 py-2 bg-white text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
+              >
+                <option value="">ব্লাড গ্রুপ নির্বাচন করুন</option>
+                <option value="A+">A+ (পজিটিভ)</option>
+                <option value="A-">A- (নেগেটিভ)</option>
+                <option value="B+">B+ (পজিটিভ)</option>
+                <option value="B-">B- (নেগেটিভ)</option>
+                <option value="AB+">AB+ (পজিটিভ)</option>
+                <option value="AB-">AB- (নেগেটিভ)</option>
+                <option value="O+">O+ (পজিটিভ)</option>
+                <option value="O-">O- (নেগেটিভ)</option>
+                <option value="জানা নেই">জানা নেই</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 pointer-events-none"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Para / Neighborhood (Optional) -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            পাড়া / মহল্লা / বাড়ি (ঐচ্ছিক)
           </label>
-
-          <label class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700">
-            <input type="checkbox" id="formIsGovt" onchange="toggleGovtInputs(this.checked)" class="w-4 h-4 rounded text-purple-600 focus:ring-purple-500">
-            <span>তিনি কি সরকারি চাকরিজীবী (বর্তমান অথবা অবসরপ্রাপ্ত)?</span>
-          </label>
-        </div>
-
-        <!-- সরকারি চাকরির বিস্তারিত (শর্তসাপেক্ষ) -->
-        <div id="govtDetailsBox" class="hidden p-3.5 bg-purple-50/70 border border-purple-200 rounded-2xl space-y-3">
-          <div>
-            <label class="block text-[11px] font-semibold text-purple-900 mb-1">চাকরির স্থিতি</label>
-            <select id="formGovtStatus" class="w-full px-3 py-2 rounded-xl border border-purple-200 text-xs bg-white focus:outline-none">
-              <option value="কর্মরত">🏛️ বর্তমানে কর্মরত (Active)</option>
-              <option value="অবসরপ্রাপ্ত">🎖️ অবসরপ্রাপ্ত (পেনশনার)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[11px] font-semibold text-purple-900 mb-1">দপ্তর / বিভাগ / মন্ত্রণালয়</label>
-            <input type="text" id="formGovtDept" placeholder="উদাঃ বাংলাদেশ রেলওয়ে / সংস্থাপন মন্ত্রণালয়" class="w-full px-3 py-2 rounded-xl border border-purple-200 text-xs bg-white focus:outline-none">
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+              <i class="fa-solid fa-house-chimney text-xs"></i>
+            </span>
+            <input 
+              type="text" 
+              name="address" 
+              id="formAddress" 
+              placeholder="উদাঃ উত্তর পাড়া / স্কুল রোড / মিয়াবাড়ি" 
+              class="w-full pl-9 pr-3 py-2 bg-slate-50 text-xs sm:text-sm rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition text-slate-800"
+            >
           </div>
         </div>
 
-        <!-- ঠিকানা ও জীবিত/মরহুম স্ট্যাটাস -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">মহল্লা / পাড়া বা বর্তমান অবস্থান</label>
-            <input type="text" id="formAddress" placeholder="উদাঃ জোড়া দক্ষিণপাড়া" value="জোড়া দক্ষিণপাড়া" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">বর্তমান স্থিতি</label>
-            <select id="formStatus" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none">
-              <option value="জীবিত">জীবিত</option>
-              <option value="মরহুম">মরহুম (প্রয়াত স্মরণীয় ব্যক্তি)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- সাবমিট বাটন -->
-        <div class="pt-2">
-          <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-sm shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-floppy-disk"></i>
-            <span id="submitBtnText">তথ্য সেভ করুন</span>
+        <!-- Submit Button -->
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button 
+            type="button" 
+            onclick="closeAddModal()" 
+            class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-medium transition"
+          >
+            বাতিল
+          </button>
+          <button 
+            type="submit" 
+            id="submitBtn" 
+            class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-md shadow-emerald-600/20 transition flex items-center gap-2"
+          >
+            <span id="submitSpinner" class="hidden"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+            <span>তথ্য সংরক্ষণ করুন</span>
           </button>
         </div>
+
       </form>
     </div>
   </div>
 
-  <!-- ডিলিট কনফার্মেশন ও পিন মডাল -->
-  <div id="deleteModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 text-center space-y-4 border border-slate-100">
-      <div class="w-14 h-14 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto text-2xl">
-        <i class="fa-solid fa-trash-can"></i>
-      </div>
-      <div>
-        <h3 class="font-bold text-base text-slate-800">তথ্যটি মুছে ফেলতে চান?</h3>
-        <p class="text-xs text-slate-500 mt-1">অননুমোদিত ডিলিট ঠেকাতে অ্যাডমিন পিন কোড প্রদান করুন:</p>
-      </div>
-      <input type="password" id="deletePinInput" placeholder="৪ ডিজিটের পিন (ডিফল্ট: 1234)" class="w-full px-3.5 py-2 text-center tracking-widest text-lg font-bold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500">
-      <input type="hidden" id="deleteRowIndex" value="">
-      <div class="flex items-center gap-2 pt-2">
-        <button onclick="closeDeleteModal()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">বাতিল</button>
-        <button onclick="confirmDeleteWithPin()" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-semibold text-white shadow-md shadow-rose-600/20">মুছে ফেলুন</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- গুগল শিট কনফিগারেশন মডাল -->
-  <div id="sheetConfigModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-100">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2.5 text-slate-800 font-bold text-base">
-          <i class="fa-solid fa-table text-emerald-600"></i>
-          <span>গুগল শিট API সংযোগ</span>
+  <!-- ================= GOOGLE SHEETS SETUP MODAL ================= -->
+  <div id="sheetSetupModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 transform transition-all my-6">
+      
+      <!-- Modal Header -->
+      <div class="bg-slate-900 p-5 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-white">গুগল শিট সার্ভার কানেকশন</h3>
+            <p class="text-xs text-slate-400">ওয়েবসাইট ডাউন থাকলেও আপনার গুগল শিটে ডাটা নিরাপদে থাকবে</p>
+          </div>
         </div>
-        <button onclick="closeSheetConfigModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeSheetModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
       </div>
-      <p class="text-xs text-slate-600 leading-relaxed">
-        গুগল শিটের Apps Script Deploy থেকে পাওয়া Web App URL-টি নিচে বসিয়ে দিন।
-      </p>
-      <div>
-        <label class="block text-[11px] font-semibold text-slate-700 mb-1">Web App URL</label>
-        <input type="url" id="manualSheetUrlInput" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
-      </div>
-      <div class="flex items-center justify-end gap-2 pt-2">
-        <button onclick="closeSheetConfigModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-600">বন্ধ করুন</button>
-        <button onclick="saveManualSheetUrl()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-xs font-semibold text-white">সেভ করুন</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- লাইটবক্স পূর্ণাঙ্গ ছবি প্রিভিউ -->
-  <div id="imageLightbox" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer">
-    <img id="lightboxImg" src="" alt="বড় ছবি" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain">
+      <div class="p-6 space-y-5 max-h-[80vh] overflow-y-auto text-sm text-slate-700">
+        
+        <!-- Status Info Banner -->
+        <div id="sheetStatusBanner" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+          <i class="fa-solid fa-circle-info text-emerald-600 mt-0.5"></i>
+          <div class="text-xs space-y-1">
+            <p class="font-semibold text-slate-800">বর্তমানে তথ্যগুলো আপনার ব্রাউজারে সুরক্ষিত রয়েছে।</p>
+            <p class="text-slate-500">গুগল শিটের সাথে যুক্ত করলে যে কেউ ওয়েবসাইটে তথ্য এন্ট্রি দিলে তা সরাসরি আপনার পার্সোনাল গুগল শিটে যোগ হয়ে যাবে।</p>
+          </div>
+        </div>
+
+        <!-- Step 1: Paste URL -->
+        <div class="space-y-2">
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+            ১. আপনার Google Apps Script Web App URL দিন:
+          </label>
+          <div class="flex gap-2">
+            <input 
+              type="url" 
+              id="sheetWebhookUrl" 
+              placeholder="https://script.google.com/macros/s/.../exec" 
+              class="flex-1 px-3.5 py-2.5 bg-slate-50 text-xs sm:text-sm rounded-xl border border-slate-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition font-mono"
+            >
+            <button 
+              onclick="saveSheetUrl()" 
+              class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition shrink-0"
+            >
+              সংরক্ষণ
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-500">URL খালি রেখে সেভ করলে লোকাল মোডে ফেরত যাবে।</p>
+        </div>
+
+        <!-- Step 2: How to setup guide -->
+        <div class="border-t border-slate-200 pt-4 space-y-3">
+          <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+            <span>২. গুগল শিটে স্ক্রিপ্ট তৈরি করার নিয়ম (মাত্র ২ মিনিট):</span>
+          </h4>
+          <ol class="list-decimal list-inside space-y-1.5 text-xs text-slate-600 leading-relaxed">
+            <li>একটি নতুন <strong>Google Sheet</strong> খুলুন এবং প্রথম সারিতে হেডার দিন: <code class="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">Timestamp | Name | Designation | Phone | IsYouth | BloodGroup | IsGovt | GovtStatus | GovtDept | Address</code></li>
+            <li>উপরের মেনু থেকে <strong>Extensions > Apps Script</strong>-এ যান।</li>
+            <li>সেখানে থাকা সব কোড মুছে নিচের কোডটি পেস্ট করুন:</li>
+          </ol>
+
+          <!-- Apps Script Code Box -->
+          <div class="relative">
+            <pre class="bg-slate-900 text-slate-200 text-[11px] p-3.5 rounded-xl font-mono overflow-x-auto max-h-48 border border-slate-800 leading-relaxed">
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // নতুন রো হিসেবে ডেটা ইনসার্ট করা
+    sheet.appendRow([
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+      data.name,
+      data.designation,
+      data.phone,
+      data.isYouth ? 'হ্যাঁ' : 'না',
+      data.bloodGroup || '',
+      data.isGovtEmployee ? 'হ্যাঁ' : 'না',
+      data.govtStatus === 'retired' ? 'অবসরপ্রাপ্ত' : (data.isGovtEmployee ? 'কর্মরত' : ''),
+      data.govtDept || '',
+      data.address || ''
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success", 
+      message: "Data saved successfully"
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error", 
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+            <button onclick="copyScriptCode()" class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-white text-[11px] transition flex items-center gap-1.5 border border-slate-700">
+              <i class="fa-regular fa-copy"></i>
+              <span id="copyScriptText">কপি করুন</span>
+            </button>
+          </div>
+
+          <ol start="4" class="list-decimal list-inside space-y-1 text-xs text-slate-600">
+            <li>Apps Script এ ডান পাশের <strong>Deploy > New deployment</strong> বাটনে ক্লিক করুন।</li>
+            <li>Select type হিসেবে <strong>Web app</strong> নির্বাচন করুন।</li>
+            <li><em>Who has access</em> অপশনটিতে অবশ্যই <strong>"Anyone" (যে কেউ)</strong> নির্বাচন করবেন।</li>
+            <li>তারপর Deploy করে প্রাপ্ত <strong>Web app URL</strong> কপি করে উপরে বসিয়ে সেভ করুন!</li>
+          </ol>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+        <button onclick="exportToCSV()" class="text-xs text-slate-600 hover:text-emerald-700 font-semibold flex items-center gap-1.5">
+          <i class="fa-solid fa-file-csv text-base text-emerald-600"></i>
+          <span>বর্তমান তথ্যসমূহ CSV ব্যাকআপ নিন</span>
+        </button>
+        <button onclick="closeSheetModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-semibold hover:bg-slate-900 transition">
+          বন্ধ করুন
+        </button>
+      </div>
+
+    </div>
   </div>
 
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    // এখানে আপনার গুগল স্ক্রিপ্ট Web App URL বসিয়ে দিন
-    const HARDCODED_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyIT7bReazf6rdvCcWX3AuQjHUoJ96JZnOBFgxwvHJjJgM8h84J8rk7-3hpEbykEcXy/exec";
-    const ADMIN_PIN = "1234";
-
-    let villageMembers = [];
-    let currentFilterCategory = "";
-    let currentViewMode = "grid";
-
-    function getActiveSheetUrl() {
-      return localStorage.getItem('custom_sheet_url') || HARDCODED_GOOGLE_SHEET_URL;
-    }
-
-    // গুগল শিট থেকে ডাটা রিড করা
-    async function fetchSheetData(showToast = false) {
-      const url = getActiveSheetUrl();
-      const syncIcon = document.getElementById('syncIcon');
-      if (syncIcon) syncIcon.classList.add('fa-spin');
-      document.getElementById('resultCountText').innerText = "গুগল শিট থেকে তথ্য আনা হচ্ছে...";
-
-      if (!url) {
-        document.getElementById('sheetStatusDot').className = "w-2 h-2 rounded-full bg-rose-500 ml-0.5";
-        document.getElementById('resultCountText').innerText = "গুগল শিটের Web App URL কনফিগার করা হয়নি।";
-        renderEmptyState();
-        if (syncIcon) syncIcon.classList.remove('fa-spin');
-        return;
+    // Initial sample data for "জোড়া দক্ষিণপাড়া" village with photos & govt status
+    const initialSampleData = [
+      {
+        id: '1',
+        name: 'মাওলানা মোঃ রফিকুল ইসলাম',
+        designation: 'প্রধান শিক্ষক',
+        phone: '01711223344',
+        isYouth: false,
+        bloodGroup: 'A+',
+        address: 'উত্তরপাড়া, জামে মসজিদ সংলগ্ন',
+        isGovtEmployee: true,
+        govtStatus: 'retired',
+        govtDept: 'মাধ্যমিক শিক্ষা অধিদপ্তর',
+        photo: '',
+        createdAt: '2026-10-12'
+      },
+      {
+        id: '2',
+        name: 'তানভীর আহমেদ শুভ',
+        designation: 'সফটওয়্যার ইঞ্জিনিয়ার ও যুবসমাজ সদস্য',
+        phone: '01819998877',
+        isYouth: true,
+        bloodGroup: 'O+',
+        address: 'মধ্যপাড়া, মিয়াবাড়ি',
+        isGovtEmployee: false,
+        govtStatus: 'active',
+        govtDept: '',
+        photo: '',
+        createdAt: '2026-11-01'
+      },
+      {
+        id: '3',
+        name: 'মোঃ আব্দুল কুদ্দুস',
+        designation: 'কৃষক ও সমবায় সভাপতি',
+        phone: '01912345678',
+        isYouth: false,
+        bloodGroup: 'B+',
+        address: 'দক্ষিণপাড়া বিল পাড়',
+        isGovtEmployee: false,
+        govtStatus: 'active',
+        govtDept: '',
+        photo: '',
+        createdAt: '2026-09-18'
+      },
+      {
+        id: '4',
+        name: 'সাকিব আল হাসান',
+        designation: 'বিশ্ববিদ্যালয় শিক্ষার্থী',
+        phone: '01622334455',
+        isYouth: true,
+        bloodGroup: 'AB+',
+        address: 'পূর্বপাড়া স্কুল রোড',
+        isGovtEmployee: false,
+        govtStatus: 'active',
+        govtDept: '',
+        photo: '',
+        createdAt: '2026-11-04'
+      },
+      {
+        id: '5',
+        name: 'মোঃ হেলাল উদ্দিন',
+        designation: 'সহকারী প্রকৌশলী',
+        phone: '01755667788',
+        isYouth: false,
+        bloodGroup: 'B+',
+        address: 'দক্ষিণপাড়া বাজার',
+        isGovtEmployee: true,
+        govtStatus: 'active',
+        govtDept: 'এলজিইডি (LGED)',
+        photo: '',
+        createdAt: '2026-10-25'
+      },
+      {
+        id: '6',
+        name: 'মাহমুদুল হাসান নাহিদ',
+        designation: 'পলিটেকনিক শিক্ষার্থী',
+        phone: '01300112233',
+        isYouth: true,
+        bloodGroup: 'O-',
+        address: 'দক্ষিণপাড়া মোড়',
+        isGovtEmployee: false,
+        govtStatus: 'active',
+        govtDept: '',
+        photo: '',
+        createdAt: '2026-11-05'
       }
+    ];
 
-      try {
-        const response = await fetch(url);
-        const res = await response.json();
-        if (res.status === "success" && Array.isArray(res.members)) {
-          villageMembers = res.members;
-          document.getElementById('sheetStatusDot').className = "w-2 h-2 rounded-full bg-emerald-500 ml-0.5";
-          applyFilters();
-          updateStats();
-          if (showToast) triggerToast("সফল", "গুগল শিট থেকে সর্বশেষ তথ্য আপডেট হয়েছে।");
-        } else {
-          throw new Error(res.error || "ডাটা পাওয়া যায়নি");
-        }
-      } catch (err) {
-        console.error("Fetch Error:", err);
-        document.getElementById('sheetStatusDot').className = "w-2 h-2 rounded-full bg-amber-500 ml-0.5";
-        document.getElementById('resultCountText').innerText = "গুগল শিটে সংযোগ করা যায়নি।";
-        renderEmptyState();
-      } finally {
-        if (syncIcon) syncIcon.classList.remove('fa-spin');
-      }
-    }
+    // App state
+    let members = [];
+    let currentView = 'grid'; // 'grid' or 'table'
+    let googleSheetUrl = '';
+    let currentPage = 1;
+    let itemsPerPage = 50;
 
-    // পরিসংখ্যান আপডেট
-    function updateStats() {
-      const total = villageMembers.length;
-      const govt = villageMembers.filter(m => m.isGovt).length;
-      const blood = villageMembers.filter(m => m.blood && m.blood !== 'জানা নেই').length;
-      const youth = villageMembers.filter(m => m.isYouth).length;
+    // Initialize application
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStoredData();
+      updateStats();
+      renderMembers();
+      checkGoogleSheetConnection();
+    });
 
-      document.getElementById('statTotal').innerText = total;
-      document.getElementById('statGovt').innerText = govt;
-      document.getElementById('statBlood').innerText = blood;
-      document.getElementById('statYouth').innerText = youth;
-    }
-
-    // ফিল্টারিং ও সার্চ
-    function applyFilters() {
-      const query = document.getElementById('searchInput').value.trim().toLowerCase();
-      const blood = document.getElementById('bloodFilter').value;
-      const category = document.getElementById('categoryFilter').value || currentFilterCategory;
-
-      const clearBtn = document.getElementById('clearSearchBtn');
-      if (query) clearBtn.classList.remove('hidden');
-      else clearBtn.classList.add('hidden');
-
-      const filtered = villageMembers.filter(m => {
-        const matchesQuery = !query || 
-          (m.name && m.name.toLowerCase().includes(query)) ||
-          (m.designation && m.designation.toLowerCase().includes(query)) ||
-          (m.phone && m.phone.includes(query)) ||
-          (m.govtDept && m.govtDept.toLowerCase().includes(query)) ||
-          (m.address && m.address.toLowerCase().includes(query));
-
-        const matchesBlood = !blood || (m.blood === blood);
-
-        let matchesCat = true;
-        if (category === 'govt_all') matchesCat = m.isGovt;
-        else if (category === 'govt_active') matchesCat = m.isGovt && m.govtStatus === 'কর্মরত';
-        else if (category === 'govt_retired') matchesCat = m.isGovt && m.govtStatus === 'অবসরপ্রাপ্ত';
-        else if (category === 'youth_only') matchesCat = m.isYouth;
-        else if (category === 'deceased') matchesCat = (m.status === 'মরহুম');
-
-        return matchesQuery && matchesBlood && matchesCat;
-      });
-
-      document.getElementById('resultCountText').innerText = `প্রদর্শন করা হচ্ছে ${filtered.length} জনের তথ্য`;
-
-      if (filtered.length === 0) {
-        renderEmptyState();
-      } else {
-        document.getElementById('emptyState').classList.add('hidden');
-        renderCards(filtered);
-        renderTable(filtered);
-      }
-    }
-
-    // আকর্ষণীয় কার্ড রেন্ডারিং
-    function renderCards(list) {
-      const container = document.getElementById('cardViewContainer');
-      container.innerHTML = list.map(m => {
-        const isDeceased = (m.status === 'মরহুম');
-        const avatarHtml = m.photo 
-          ? `<img src="${m.photo}" onclick="openLightbox('${m.photo}')" class="w-14 h-14 rounded-2xl object-cover cursor-pointer ring-2 ring-emerald-500/20 shadow-xs hover:scale-105 transition shrink-0" alt="${m.name}">`
-          : `<div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold text-lg flex items-center justify-center shrink-0 shadow-xs ring-2 ring-emerald-500/20">${(m.name || 'ন').trim().charAt(0)}</div>`;
-
-        return `
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-emerald-200 transition flex flex-col justify-between relative group ${isDeceased ? 'bg-slate-50/50' : ''}">
-            <div>
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-3">
-                  ${avatarHtml}
-                  <div>
-                    <h3 class="font-bold text-slate-900 text-sm leading-snug">${m.name}</h3>
-                    <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">${m.designation}</p>
-                  </div>
-                </div>
-                
-                <!-- এডিট ও ডিলিট বাটন -->
-                <div class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition">
-                  <button onclick="openEditModal('${m.rowIndex}')" class="w-7 h-7 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 flex items-center justify-center text-xs transition" title="এডিট করুন">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button onclick="promptDelete('${m.rowIndex}')" class="w-7 h-7 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center text-xs transition" title="মুছে ফেলুন">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
-
-              <!-- ব্যাজসমূহ -->
-              <div class="flex flex-wrap gap-1.5 mt-3">
-                ${m.isGovt ? `
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${m.govtStatus === 'অবসরপ্রাপ্ত' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-purple-50 text-purple-700 border border-purple-200'}">
-                    <i class="fa-solid ${m.govtStatus === 'অবসরপ্রাপ্ত' ? 'fa-award' : 'fa-building-columns'} text-[9px]"></i>
-                    ${m.govtStatus || 'সরকারি'}
-                  </span>
-                ` : ''}
-
-                ${m.isYouth ? `
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                    <i class="fa-solid fa-bolt text-[9px]"></i> যুবসমাজ
-                  </span>
-                ` : ''}
-
-                ${m.blood && m.blood !== 'জানা নেই' ? `
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
-                    <i class="fa-solid fa-droplet text-[9px]"></i> ${m.blood}
-                  </span>
-                ` : ''}
-
-                ${isDeceased ? `
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-200/80 text-slate-700">
-                    🕊️ মরহুম
-                  </span>
-                ` : ''}
-              </div>
-
-              ${m.govtDept ? `
-                <div class="text-[11px] text-slate-600 mt-2 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-100 flex items-center gap-1.5">
-                  <i class="fa-regular fa-building text-slate-400"></i>
-                  <span class="line-clamp-1">${m.govtDept}</span>
-                </div>
-              ` : ''}
-            </div>
-
-            <!-- ফোন ও অ্যাকশন বাটন -->
-            <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-              <span class="text-xs font-semibold text-slate-700 truncate">
-                ${m.phone ? m.phone : '<span class="text-slate-400 font-normal">নম্বর নেই</span>'}
-              </span>
-              
-              <div class="flex items-center gap-1.5">
-                ${m.phone ? `
-                  <button onclick="copyPhone('${m.phone}')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition" title="নম্বর কপি করুন">
-                    <i class="fa-regular fa-copy"></i>
-                  </button>
-                  <a href="tel:${m.phone}" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-phone text-[10px]"></i>
-                    <span>কল</span>
-                  </a>
-                ` : ''}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // টেবিল ভিউ রেন্ডারিং
-    function renderTable(list) {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = list.map(m => `
-        <tr class="hover:bg-slate-50/80 transition">
-          <td class="px-4 py-3">
-            <div class="flex items-center gap-2.5">
-              ${m.photo 
-                ? `<img src="${m.photo}" class="w-8 h-8 rounded-full object-cover shrink-0 cursor-pointer" onclick="openLightbox('${m.photo}')">`
-                : `<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs shrink-0">${(m.name || 'ন').charAt(0)}</div>`
-              }
-              <div class="font-semibold text-slate-900">${m.name}</div>
-            </div>
-          </td>
-          <td class="px-4 py-3 text-slate-600">${m.designation}</td>
-          <td class="px-4 py-3">
-            ${m.isGovt ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold ${m.govtStatus === 'অবসরপ্রাপ্ত' ? 'bg-amber-100 text-amber-800' : 'bg-purple-100 text-purple-800'}">${m.govtStatus || 'সরকারি'}</span>` : ''}
-            <div class="text-[11px] text-slate-500">${m.govtDept || ''}</div>
-          </td>
-          <td class="px-4 py-3">
-            ${m.blood && m.blood !== 'জানা নেই' ? `<span class="text-rose-600 font-bold">${m.blood}</span>` : '<span class="text-slate-400">-</span>'}
-          </td>
-          <td class="px-4 py-3 text-slate-500">${m.address || '-'}</td>
-          <td class="px-4 py-3 text-right">
-            <div class="flex items-center justify-end gap-1.5">
-              ${m.phone ? `<a href="tel:${m.phone}" class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs"><i class="fa-solid fa-phone"></i></a>` : ''}
-              <button onclick="openEditModal('${m.rowIndex}')" class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-slate-100 text-xs"><i class="fa-solid fa-pen"></i></button>
-              <button onclick="promptDelete('${m.rowIndex}')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 text-xs"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function renderEmptyState() {
-      document.getElementById('cardViewContainer').innerHTML = '';
-      document.getElementById('tableBody').innerHTML = '';
-      document.getElementById('emptyState').classList.remove('hidden');
-    }
-
-    // ভিউ মোড টগল
-    function toggleView(mode) {
-      currentViewMode = mode;
-      const cardView = document.getElementById('cardViewContainer');
-      const tableView = document.getElementById('tableViewContainer');
-      const gridBtn = document.getElementById('viewGridBtn');
-      const tableBtn = document.getElementById('viewTableBtn');
-
-      if (mode === 'grid') {
-        cardView.classList.remove('hidden');
-        tableView.classList.add('hidden');
-        gridBtn.className = "p-1.5 px-2.5 rounded-lg text-xs font-semibold text-emerald-700 bg-white shadow-xs transition";
-        tableBtn.className = "p-1.5 px-2.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-700 transition";
-      } else {
-        cardView.classList.add('hidden');
-        tableView.classList.remove('hidden');
-        tableBtn.className = "p-1.5 px-2.5 rounded-lg text-xs font-semibold text-emerald-700 bg-white shadow-xs transition";
-        gridBtn.className = "p-1.5 px-2.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-700 transition";
-      }
-    }
-
-    // ফিল্টার পিলস নির্বাচন
-    function setFilterCategory(cat) {
-      currentFilterCategory = cat;
-      document.getElementById('categoryFilter').value = cat;
-      document.querySelectorAll('.pill-btn').forEach(btn => {
-        if (btn.dataset.filter === cat) {
-          btn.className = "pill-btn active px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-medium hover:bg-emerald-200 transition shrink-0";
-        } else {
-          btn.className = "pill-btn px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 transition shrink-0 text-slate-700";
-        }
-      });
-      applyFilters();
-    }
-
-    function resetFilters() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('bloodFilter').value = '';
-      setFilterCategory('');
-    }
-
-    function clearSearch() {
-      document.getElementById('searchInput').value = '';
-      applyFilters();
-    }
-
-    // ফর্ম সাবমিট (যোগ এবং এডিট)
-    async function handleFormSubmit(e) {
-      e.preventDefault();
-      const url = getActiveSheetUrl();
-      if (!url) {
-        alert("প্রথমে গুগল শিটের Web App URL টি সেট করুন!");
-        openSheetConfigModal();
-        return;
-      }
-
-      const submitBtn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('submitBtnText');
-      submitBtn.disabled = true;
-      btnText.innerText = "গুগল শিটে সেভ হচ্ছে...";
-
-      const rowIndex = document.getElementById('editRowIndex').value;
-      const isEdit = Boolean(rowIndex);
-
-      const payload = {
-        action: isEdit ? "update" : "create",
-        rowIndex: rowIndex ? parseInt(rowIndex) : undefined,
-        name: document.getElementById('formName').value.trim(),
-        designation: document.getElementById('formDesignation').value.trim(),
-        phone: document.getElementById('formPhone').value.trim(),
-        isYouth: document.getElementById('formIsYouth').checked,
-        bloodGroup: document.getElementById('formBlood').value,
-        isGovtEmployee: document.getElementById('formIsGovt').checked,
-        govtStatus: document.getElementById('formGovtStatus').value,
-        govtDept: document.getElementById('formGovtDept').value.trim(),
-        address: document.getElementById('formAddress').value.trim(),
-        photo: document.getElementById('photoBase64').value,
-        status: document.getElementById('formStatus').value
-      };
-
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload)
-        });
-        const res = await response.json();
-        if (res.status === "success") {
-          closeMemberModal();
-          triggerToast("সফল!", isEdit ? "তথ্য সফলভাবে এডিট হয়েছে।" : "নতুন তথ্য গুগল শিটে যুক্ত হয়েছে।");
-          fetchSheetData();
-        } else {
-          throw new Error(res.error || "ব্যর্থ হয়েছে");
-        }
-      } catch (err) {
-        alert("ত্রুটি: " + err.message);
-      } finally {
-        submitBtn.disabled = false;
-        btnText.innerText = "তথ্য সেভ করুন";
-      }
-    }
-
-    // সুরক্ষিত ডিলিট
-    function promptDelete(rowIndex) {
-      document.getElementById('deleteRowIndex').value = rowIndex;
-      document.getElementById('deletePinInput').value = '';
-      document.getElementById('deleteModal').classList.remove('hidden');
-    }
-
-    function closeDeleteModal() {
-      document.getElementById('deleteModal').classList.add('hidden');
-    }
-
-    async function confirmDeleteWithPin() {
-      const pin = document.getElementById('deletePinInput').value;
-      if (pin !== ADMIN_PIN) {
-        alert("ভুল পিন কোড! সঠিক অ্যাডমিন পিন প্রদান করুন।");
-        return;
-      }
-
-      const rowIndex = document.getElementById('deleteRowIndex').value;
-      const url = getActiveSheetUrl();
-
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ action: "delete", rowIndex: parseInt(rowIndex) })
-        });
-        const res = await response.json();
-        if (res.status === "success") {
-          closeDeleteModal();
-          triggerToast("মুছে ফেলা হয়েছে", "তথ্যটি গুগল শিট থেকে সম্পূর্ণ মুছে গেছে।");
-          fetchSheetData();
-        } else {
-          throw new Error(res.error || "মুছে ফেলা যায়নি");
-        }
-      } catch (err) {
-        alert("ডিলিট করতে সমস্যা হয়েছে: " + err.message);
-      }
-    }
-
-    // ফটো কম্প্রেস ও প্রিভিউ
-    function processPhotoUpload(input) {
-      const file = input.files[0];
+    // Helper: Client-side photo resize & compression to Base64
+    function handlePhotoSelect(event) {
+      const file = event.target.files[0];
       if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showToast('ত্রুটি', 'অনুগ্রহ করে একটি ছবি ফাইল নির্বাচন করুন', 'error');
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
+          const maxDim = 360;
           let width = img.width;
           let height = img.height;
-          const maxDim = 320;
 
-          if (width > height && width > maxDim) {
-            height = Math.round((height * maxDim) / width);
-            width = maxDim;
-          } else if (height > maxDim) {
-            width = Math.round((width * maxDim) / height);
-            height = maxDim;
+          if (width > height) {
+            if (width > maxDim) {
+              height *= maxDim / width;
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width *= maxDim / height;
+              height = maxDim;
+            }
           }
 
           canvas.width = width;
@@ -853,123 +839,763 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          const compressed = canvas.toDataURL('image/jpeg', 0.7);
-          document.getElementById('photoBase64').value = compressed;
-          document.getElementById('photoPreviewImg').src = compressed;
-          document.getElementById('photoPreviewImg').classList.remove('hidden');
-          document.getElementById('photoPlaceholder').classList.add('hidden');
-          document.getElementById('removePhotoBtn').classList.remove('hidden');
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
+          setPhotoPreview(compressedBase64);
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    function removePhoto() {
-      document.getElementById('photoInput').value = '';
-      document.getElementById('photoBase64').value = '';
-      document.getElementById('photoPreviewImg').src = '';
-      document.getElementById('photoPreviewImg').classList.add('hidden');
-      document.getElementById('photoPlaceholder').classList.remove('hidden');
-      document.getElementById('removePhotoBtn').classList.add('hidden');
+    function setPhotoPreview(base64) {
+      document.getElementById('formPhotoBase64').value = base64;
+      const previewImg = document.getElementById('photoPreviewImg');
+      const placeholder = document.getElementById('photoPlaceholderIcon');
+      const removeBtn = document.getElementById('removePhotoBtn');
+
+      previewImg.src = base64;
+      previewImg.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      removeBtn.classList.remove('hidden');
     }
 
-    // মডাল কন্ট্রোল
-    function openAddMemberModal() {
-      document.getElementById('memberForm').reset();
-      document.getElementById('editRowIndex').value = '';
-      removePhoto();
-      toggleGovtInputs(false);
-      document.getElementById('modalHeaderTitle').innerText = "নতুন নাগরিক তথ্য যোগ করুন";
-      document.getElementById('modalIcon').className = "fa-solid fa-user-plus text-white text-lg";
-      document.getElementById('memberModal').classList.remove('hidden');
+    function removeSelectedPhoto() {
+      document.getElementById('formPhotoBase64').value = '';
+      document.getElementById('photoFileInput').value = '';
+      const previewImg = document.getElementById('photoPreviewImg');
+      const placeholder = document.getElementById('photoPlaceholderIcon');
+      const removeBtn = document.getElementById('removePhotoBtn');
+
+      previewImg.src = '';
+      previewImg.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      removeBtn.classList.add('hidden');
     }
 
-    function openEditModal(rowIndex) {
-      const member = villageMembers.find(m => m.rowIndex == rowIndex);
-      if (!member) return;
-
-      document.getElementById('editRowIndex').value = rowIndex;
-      document.getElementById('formName').value = member.name || '';
-      document.getElementById('formDesignation').value = member.designation || '';
-      document.getElementById('formPhone').value = member.phone || '';
-      document.getElementById('formBlood').value = member.blood || 'জানা নেই';
-      document.getElementById('formIsYouth').checked = Boolean(member.isYouth);
-      document.getElementById('formIsGovt').checked = Boolean(member.isGovt);
-      document.getElementById('formGovtStatus').value = member.govtStatus || 'কর্মরত';
-      document.getElementById('formGovtDept').value = member.govtDept || '';
-      document.getElementById('formAddress').value = member.address || 'জোড়া দক্ষিণপাড়া';
-      document.getElementById('formStatus').value = member.status || 'জীবিত';
-
-      if (member.photo) {
-        document.getElementById('photoBase64').value = member.photo;
-        document.getElementById('photoPreviewImg').src = member.photo;
-        document.getElementById('photoPreviewImg').classList.remove('hidden');
-        document.getElementById('photoPlaceholder').classList.add('hidden');
-        document.getElementById('removePhotoBtn').classList.remove('hidden');
+    // Toggle Government Job Section in modal
+    function toggleGovtFields(isChecked) {
+      const container = document.getElementById('govtDetailsContainer');
+      if (isChecked) {
+        container.classList.remove('hidden');
       } else {
-        removePhoto();
+        container.classList.add('hidden');
+      }
+    }
+
+    // Helper: Generate clean avatar
+    function getAvatarElement(photoUrl, name, sizeClass = 'w-10 h-10', textSize = 'text-xs') {
+      const initial = name ? name.trim().charAt(0) : 'ন';
+      if (photoUrl && photoUrl.trim().length > 0) {
+        return `
+          <div class="${sizeClass} rounded-full overflow-hidden border border-slate-200 shadow-xs shrink-0 cursor-pointer" onclick="openPhotoLightbox('${escapeAttr(photoUrl)}', '${escapeAttr(name)}')">
+            <img src="${escapeAttr(photoUrl)}" alt="${escapeAttr(name)}" class="w-full h-full object-cover">
+          </div>
+        `;
+      }
+      return `
+        <div class="${sizeClass} rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold ${textSize} flex items-center justify-center shrink-0 border border-emerald-300/30 select-none">
+          ${initial}
+        </div>
+      `;
+    }
+
+    function escapeAttr(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Load data from LocalStorage
+    function loadStoredData() {
+      const stored = localStorage.getItem('jora_members_data');
+      if (stored) {
+        try {
+          members = JSON.parse(stored);
+        } catch (e) {
+          members = initialSampleData;
+        }
+      } else {
+        members = initialSampleData;
+        saveMembersLocally();
       }
 
-      toggleGovtInputs(member.isGovt);
-      document.getElementById('modalHeaderTitle').innerText = "তথ্য সংশোধন (এডিট) করুন";
-      document.getElementById('modalIcon').className = "fa-solid fa-user-pen text-white text-lg";
-      document.getElementById('memberModal').classList.remove('hidden');
+      googleSheetUrl = localStorage.getItem('jora_sheet_webhook_url') || '';
+      const sheetInput = document.getElementById('sheetWebhookUrl');
+      if (sheetInput && googleSheetUrl) {
+        sheetInput.value = googleSheetUrl;
+      }
     }
 
-    function closeMemberModal() {
-      document.getElementById('memberModal').classList.add('hidden');
+    // Save to LocalStorage
+    function saveMembersLocally() {
+      localStorage.setItem('jora_members_data', JSON.stringify(members));
+      updateStats();
     }
 
-    function toggleGovtInputs(show) {
-      const box = document.getElementById('govtDetailsBox');
-      if (show) box.classList.remove('hidden');
-      else box.classList.add('hidden');
+    // Update Top Counters
+    function updateStats() {
+      const total = members.length;
+      const bloodDonors = members.filter(m => m.bloodGroup && m.bloodGroup !== 'জানা নেই').length;
+      const youth = members.filter(m => m.isYouth).length;
+      const govtCount = members.filter(m => m.isGovtEmployee).length;
+
+      document.getElementById('statTotalMembers').textContent = toBengaliNumber(total);
+      document.getElementById('statBloodDonors').textContent = toBengaliNumber(bloodDonors);
+      document.getElementById('statYouthCount').textContent = toBengaliNumber(youth);
+      document.getElementById('statGovtCount').textContent = toBengaliNumber(govtCount);
     }
 
-    function openSheetConfigModal() {
-      document.getElementById('manualSheetUrlInput').value = getActiveSheetUrl();
-      document.getElementById('sheetConfigModal').classList.remove('hidden');
+    // Convert English numbers to Bengali numerals
+    function toBengaliNumber(num) {
+      const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return num.toString().replace(/\d/g, d => bnDigits[d]);
     }
 
-    function closeSheetConfigModal() {
-      document.getElementById('sheetConfigModal').classList.add('hidden');
+    // Change items per page
+    function changePerPage(val) {
+      if (val === 'all') {
+        itemsPerPage = 999999;
+      } else {
+        itemsPerPage = parseInt(val, 10);
+      }
+      currentPage = 1;
+      renderMembers();
     }
 
-    function saveManualSheetUrl() {
-      const val = document.getElementById('manualSheetUrlInput').value.trim();
-      localStorage.setItem('custom_sheet_url', val);
-      closeSheetConfigModal();
-      triggerToast("সংরক্ষিত!", "গুগল শিটের নতুন URL সেট করা হয়েছে।");
-      fetchSheetData();
+    // Render Members (handles Grid & Table views with high-density & pagination)
+    function renderMembers() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const bloodFilter = document.getElementById('bloodFilter').value;
+      const categoryFilter = document.getElementById('categoryFilter').value;
+
+      // Filter Logic
+      const filtered = members.filter(m => {
+        const matchQuery = !query || 
+          m.name.toLowerCase().includes(query) || 
+          m.phone.includes(query) || 
+          m.designation.toLowerCase().includes(query) || 
+          (m.govtDept && m.govtDept.toLowerCase().includes(query)) ||
+          (m.address && m.address.toLowerCase().includes(query)) ||
+          (m.bloodGroup && m.bloodGroup.toLowerCase().includes(query));
+
+        const matchBlood = !bloodFilter || m.bloodGroup === bloodFilter;
+
+        let matchCategory = true;
+        if (categoryFilter === 'govt_all') {
+          matchCategory = !!m.isGovtEmployee;
+        } else if (categoryFilter === 'govt_active') {
+          matchCategory = m.isGovtEmployee && m.govtStatus !== 'retired';
+        } else if (categoryFilter === 'govt_retired') {
+          matchCategory = m.isGovtEmployee && m.govtStatus === 'retired';
+        } else if (categoryFilter === 'youth_only') {
+          matchCategory = m.isYouth;
+        } else if (categoryFilter) {
+          matchCategory = m.designation.includes(categoryFilter);
+        }
+
+        return matchQuery && matchBlood && matchCategory;
+      });
+
+      // Pagination slice
+      const totalFiltered = filtered.length;
+      const totalPages = Math.ceil(totalFiltered / itemsPerPage) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const paginatedItems = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+      // Update counters text
+      document.getElementById('resultCountText').textContent = 
+        `মোট ${toBengaliNumber(totalFiltered)} জনের তথ্য পাওয়া গেছে (প্রদর্শিত: ${toBengaliNumber(paginatedItems.length)} জন)`;
+      document.getElementById('pageInfoText').textContent = 
+        `পৃষ্ঠা ${toBengaliNumber(currentPage)} / ${toBengaliNumber(totalPages)}`;
+
+      // Show/Hide Empty State
+      const emptyState = document.getElementById('emptyState');
+      const cardContainer = document.getElementById('cardViewContainer');
+      const tableContainer = document.getElementById('tableViewContainer');
+      const paginationBar = document.getElementById('paginationBar');
+
+      if (totalFiltered === 0) {
+        emptyState.classList.remove('hidden');
+        cardContainer.classList.add('hidden');
+        tableContainer.classList.add('hidden');
+        paginationBar.innerHTML = '';
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+        if (currentView === 'grid') {
+          cardContainer.classList.remove('hidden');
+          tableContainer.classList.add('hidden');
+        } else {
+          cardContainer.classList.add('hidden');
+          tableContainer.classList.remove('hidden');
+        }
+      }
+
+      // Render Cards
+      cardContainer.innerHTML = paginatedItems.map(m => createMemberCard(m)).join('');
+
+      // Render Table Rows
+      const tableBody = document.getElementById('tableBody');
+      tableBody.innerHTML = paginatedItems.map(m => createMemberTableRow(m)).join('');
+
+      // Render Pagination Buttons
+      renderPagination(totalPages);
     }
 
-    function openLightbox(src) {
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('imageLightbox').classList.remove('hidden');
+    // Member Card Component (Compact Modern Design with Avatar)
+    function createMemberCard(m) {
+      const bloodBadge = m.bloodGroup && m.bloodGroup !== 'জানা নেই' 
+        ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+             <i class="fa-solid fa-droplet text-[9px] text-rose-500"></i> ${m.bloodGroup}
+           </span>`
+        : `<span class="text-[10px] text-slate-400">রক্ত জানা নেই</span>`;
+
+      let govtBadge = '';
+      if (m.isGovtEmployee) {
+        if (m.govtStatus === 'retired') {
+          govtBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+            <i class="fa-solid fa-award text-amber-600"></i> অবসরপ্রাপ্ত সরকারি
+          </span>`;
+        } else {
+          govtBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-100 text-purple-900 border border-purple-300">
+            <i class="fa-solid fa-landmark text-purple-600"></i> সরকারি চাকরিজীবী
+          </span>`;
+        }
+      }
+
+      const youthBadge = m.isYouth 
+        ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-100 text-emerald-800">
+             <i class="fa-solid fa-bolt text-[9px]"></i> যুবসমাজ
+           </span>`
+        : '';
+
+      const deptLine = (m.isGovtEmployee && m.govtDept)
+        ? `<p class="text-[11px] text-purple-700 font-medium truncate mt-0.5">
+             <i class="fa-solid fa-building-user text-[10px] text-purple-500 mr-1"></i>${escapeHtml(m.govtDept)}
+           </p>`
+        : '';
+
+      const addressText = m.address 
+        ? `<p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1 truncate">
+             <i class="fa-solid fa-location-dot text-slate-400 text-[10px] shrink-0"></i>
+             <span class="truncate">${escapeHtml(m.address)}</span>
+           </p>`
+        : '';
+
+      const avatar = getAvatarElement(m.photo, m.name, 'w-10 h-10', 'text-xs');
+
+      return `
+        <div class="bg-white rounded-xl p-3.5 border border-slate-200/90 hover:border-emerald-400 transition-all duration-150 hover:shadow-md flex flex-col justify-between group">
+          <div>
+            <!-- Header Badges -->
+            <div class="flex items-center justify-between gap-1 mb-2">
+              <div class="flex items-center gap-1 flex-wrap">
+                ${govtBadge}
+                ${youthBadge}
+              </div>
+              <div class="shrink-0">
+                ${bloodBadge}
+              </div>
+            </div>
+
+            <!-- Avatar & Name/Designation -->
+            <div class="flex items-start gap-2.5">
+              ${avatar}
+              <div class="min-w-0 flex-1">
+                <h3 class="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition leading-snug truncate">${escapeHtml(m.name)}</h3>
+                <div class="text-xs text-slate-600 mt-0.5 font-medium line-clamp-1">${escapeHtml(m.designation)}</div>
+              </div>
+            </div>
+
+            ${deptLine}
+            ${addressText}
+          </div>
+
+          <!-- Bottom Action Strip -->
+          <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+            <span class="font-mono text-xs font-semibold text-slate-700 tracking-tight">${m.phone}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="copyToClipboard('${m.phone}')" class="p-1.5 text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition" title="নম্বর কপি করুন">
+                <i class="fa-regular fa-copy text-xs"></i>
+              </button>
+              <a href="tel:${m.phone}" class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white font-medium text-xs flex items-center gap-1 transition" title="কল দিন">
+                <i class="fa-solid fa-phone-flip text-[10px]"></i>
+                <span>কল</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
     }
 
-    function closeLightbox() {
-      document.getElementById('imageLightbox').classList.add('hidden');
+    // Member Table Row Component (Compact Modern Design with Avatar)
+    function createMemberTableRow(m) {
+      const blood = m.bloodGroup && m.bloodGroup !== 'জানা নেই' 
+        ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+             <i class="fa-solid fa-droplet text-[8px] text-rose-500"></i> ${m.bloodGroup}
+           </span>`
+        : `<span class="text-[10px] text-slate-400">-</span>`;
+
+      let govtStatusHtml = '<span class="text-slate-400 text-[11px]">-</span>';
+      if (m.isGovtEmployee) {
+        if (m.govtStatus === 'retired') {
+          govtStatusHtml = `
+            <div class="flex flex-col">
+              <span class="inline-block text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded w-max">
+                🎖️ অবসরপ্রাপ্ত
+              </span>
+              <span class="text-[10px] text-slate-500 mt-0.5 truncate max-w-[140px]">${escapeHtml(m.govtDept || 'সরকারি দপ্তর')}</span>
+            </div>
+          `;
+        } else {
+          govtStatusHtml = `
+            <div class="flex flex-col">
+              <span class="inline-block text-[10px] font-bold text-purple-800 bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded w-max">
+                🏛️ কর্মরত
+              </span>
+              <span class="text-[10px] text-slate-500 mt-0.5 truncate max-w-[140px]">${escapeHtml(m.govtDept || 'সরকারি দপ্তর')}</span>
+            </div>
+          `;
+        }
+      }
+
+      const avatar = getAvatarElement(m.photo, m.name, 'w-8 h-8', 'text-[10px]');
+
+      return `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="px-4 py-2.5 font-semibold text-slate-900 whitespace-nowrap">
+            <div class="flex items-center gap-2">
+              ${avatar}
+              <div>
+                <span>${escapeHtml(m.name)}</span>
+                ${m.isYouth ? '<span class="ml-1 text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-normal">যুবক</span>' : ''}
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-2.5 text-xs text-slate-600">
+            ${escapeHtml(m.designation)}
+          </td>
+          <td class="px-4 py-2.5 whitespace-nowrap">
+            ${govtStatusHtml}
+          </td>
+          <td class="px-4 py-2.5 whitespace-nowrap">
+            ${blood}
+          </td>
+          <td class="px-4 py-2.5 text-xs text-slate-500 max-w-[160px] truncate">
+            ${escapeHtml(m.address || '-')}
+          </td>
+          <td class="px-4 py-2.5 text-right whitespace-nowrap">
+            <div class="inline-flex items-center gap-1.5 font-mono text-xs">
+              <span class="font-semibold text-slate-800">${m.phone}</span>
+              <button onclick="copyToClipboard('${m.phone}')" class="p-1 text-slate-400 hover:text-emerald-700 transition" title="কপি করুন">
+                <i class="fa-regular fa-copy text-xs"></i>
+              </button>
+              <a href="tel:${m.phone}" class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded hover:bg-emerald-600 hover:text-white transition font-sans text-[11px]">
+                কল
+              </a>
+            </div>
+          </td>
+        </tr>
+      `;
     }
 
-    function copyPhone(phone) {
-      navigator.clipboard.writeText(phone);
-      triggerToast("কপি হয়েছে", `নম্বর: ${phone} ক্লিপবোর্ডে কপি করা হয়েছে।`);
+    // Pagination Generator
+    function renderPagination(totalPages) {
+      const container = document.getElementById('paginationBar');
+      if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let html = `
+        <button 
+          onclick="changePage(${currentPage - 1})" 
+          ${currentPage === 1 ? 'disabled class="opacity-40 cursor-not-allowed px-2.5 py-1 rounded-lg border border-slate-200 text-xs text-slate-400 font-medium"' : 'class="hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 text-xs text-slate-600 font-medium transition"'}
+        >
+          আগের পেজ
+        </button>
+      `;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+          const activeClass = i === currentPage 
+            ? 'bg-emerald-600 text-white font-bold' 
+            : 'hover:bg-slate-100 text-slate-700';
+          html += `
+            <button 
+              onclick="changePage(${i})" 
+              class="w-7 h-7 rounded-lg border border-slate-200 text-xs transition flex items-center justify-center ${activeClass}"
+            >
+              ${toBengaliNumber(i)}
+            </button>
+          `;
+        } else if (i === currentPage - 2 || i === currentPage + 2) {
+          html += `<span class="px-1 text-xs text-slate-400">...</span>`;
+        }
+      }
+
+      html += `
+        <button 
+          onclick="changePage(${currentPage + 1})" 
+          ${currentPage === totalPages ? 'disabled class="opacity-40 cursor-not-allowed px-2.5 py-1 rounded-lg border border-slate-200 text-xs text-slate-400 font-medium"' : 'class="hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 text-xs text-slate-600 font-medium transition"'}
+        >
+          পরের পেজ
+        </button>
+      `;
+
+      container.innerHTML = html;
     }
 
-    function triggerToast(title, msg) {
+    function changePage(page) {
+      currentPage = page;
+      renderMembers();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle Form Submit: Add New Member
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('formName').value.trim();
+      const designation = document.getElementById('formDesignation').value.trim();
+      const phone = document.getElementById('formPhone').value.trim();
+      const isYouth = document.getElementById('formIsYouth').checked;
+      const bloodGroup = document.getElementById('formBloodGroup').value;
+      const isGovtEmployee = document.getElementById('formIsGovt').checked;
+      const govtStatus = isGovtEmployee ? document.getElementById('formGovtStatus').value : '';
+      const govtDept = isGovtEmployee ? document.getElementById('formGovtDept').value.trim() : '';
+      const address = document.getElementById('formAddress').value.trim();
+      const photo = document.getElementById('formPhotoBase64').value.trim();
+
+      if (!name || !designation || !phone) {
+        showToast('ত্রুটি', 'দয়া করে সবগুলো প্রয়োজনীয় তথ্য পূরণ করুন।', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('submitSpinner');
+      submitBtn.disabled = true;
+      spinner.classList.remove('hidden');
+
+      const newMember = {
+        id: Date.now().toString(),
+        name,
+        designation,
+        phone,
+        isYouth,
+        isGovtEmployee,
+        govtStatus,
+        govtDept,
+        bloodGroup: bloodGroup || 'জানা নেই',
+        address,
+        photo: photo || '',
+        createdAt: new Date().toISOString()
+      };
+
+      // 1. Immediately store in local list
+      members.unshift(newMember);
+      saveMembersLocally();
+      currentPage = 1;
+      renderMembers();
+
+      // 2. Post to Google Sheet if Webhook URL is set
+      let syncedWithSheet = false;
+      if (googleSheetUrl && googleSheetUrl.startsWith('http')) {
+        try {
+          await fetch(googleSheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newMember)
+          });
+          syncedWithSheet = true;
+        } catch (err) {
+          console.warn('Google Sheet Sync Error:', err);
+        }
+      }
+
+      // Finish & Reset
+      submitBtn.disabled = false;
+      spinner.classList.add('hidden');
+      closeAddModal();
+      document.getElementById('memberForm').reset();
+      removeSelectedPhoto();
+      toggleGovtFields(false);
+      toggleBloodRequirement(true);
+
+      const msg = syncedWithSheet 
+        ? 'তথ্য সফলভাবে যুক্ত হয়েছে এবং গুগল শিটে পাঠানো হয়েছে!' 
+        : 'তথ্য সফলভাবে ডিরেক্টরিতে যুক্ত হয়েছে!';
+      showToast('সফল হয়েছে', msg, 'success');
+    }
+
+    // Copy to clipboard fallback safe
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('কপি হয়েছে', `নম্বর ${text} কপি করা হয়েছে`, 'success');
+      } catch (err) {
+        showToast('ত্রুটি', 'কপি করা সম্ভব হয়নি', 'error');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Toggle Blood Group Required status when Youth box is checked
+    function toggleBloodRequirement(isYouth) {
+      const star = document.getElementById('bloodRequiredStar');
+      const select = document.getElementById('formBloodGroup');
+      if (isYouth) {
+        star.classList.remove('hidden');
+        select.required = true;
+      } else {
+        star.classList.add('hidden');
+        select.required = false;
+      }
+    }
+
+    // Search and Filtering
+    function handleSearch() {
+      const searchInput = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (searchInput.value.trim().length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      currentPage = 1;
+      renderMembers();
+    }
+
+    function clearSearch() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      currentPage = 1;
+      renderMembers();
+    }
+
+    function setCategoryFilter(val) {
+      document.getElementById('categoryFilter').value = val;
+      updateActiveQuickPills();
+      currentPage = 1;
+      renderMembers();
+    }
+
+    function setBloodFilter(val) {
+      document.getElementById('bloodFilter').value = val;
+      currentPage = 1;
+      renderMembers();
+    }
+
+    function updateActiveQuickPills() {
+      const catVal = document.getElementById('categoryFilter').value;
+      document.querySelectorAll('.quick-pill').forEach(btn => {
+        if (btn.getAttribute('data-val') === catVal) {
+          btn.classList.add('bg-emerald-100', 'text-emerald-800', 'font-medium');
+          btn.classList.remove('bg-slate-100');
+        } else {
+          btn.classList.remove('bg-emerald-100', 'text-emerald-800', 'font-medium');
+          btn.classList.add('bg-slate-100');
+        }
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      document.getElementById('bloodFilter').value = '';
+      document.getElementById('categoryFilter').value = '';
+      updateActiveQuickPills();
+      currentPage = 1;
+      renderMembers();
+    }
+
+    // Switch between Grid and Table View
+    function switchView(view) {
+      currentView = view;
+      const gridBtn = document.getElementById('viewGridBtn');
+      const tableBtn = document.getElementById('viewTableBtn');
+
+      if (view === 'grid') {
+        gridBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-xs');
+        gridBtn.classList.remove('text-slate-500');
+        tableBtn.classList.remove('bg-white', 'text-emerald-700', 'shadow-xs');
+        tableBtn.classList.add('text-slate-500');
+      } else {
+        tableBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-xs');
+        tableBtn.classList.remove('text-slate-500');
+        gridBtn.classList.remove('bg-white', 'text-emerald-700', 'shadow-xs');
+        gridBtn.classList.add('text-slate-500');
+      }
+      renderMembers();
+    }
+
+    // Google Sheets URL Management
+    function saveSheetUrl() {
+      const urlInput = document.getElementById('sheetWebhookUrl').value.trim();
+      googleSheetUrl = urlInput;
+      localStorage.setItem('jora_sheet_webhook_url', urlInput);
+      checkGoogleSheetConnection();
+      showToast('সংরক্ষিত', 'গুগল শিট সেটিংস আপডেট করা হয়েছে।', 'success');
+      closeSheetModal();
+    }
+
+    function checkGoogleSheetConnection() {
+      const dot = document.getElementById('sheetStatusDot');
+      if (googleSheetUrl && googleSheetUrl.startsWith('http')) {
+        dot.classList.remove('bg-amber-500');
+        dot.classList.add('bg-emerald-500');
+        dot.setAttribute('title', 'গুগল শিট সংযুক্ত আছে');
+      } else {
+        dot.classList.add('bg-amber-500');
+        dot.classList.remove('bg-emerald-500');
+        dot.setAttribute('title', 'লোকাল মোড সক্রিয় (গুগল শিট যুক্ত নয়)');
+      }
+    }
+
+    // Copy Apps Script snippet helper
+    function copyScriptCode() {
+      const code = `function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    sheet.appendRow([
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+      data.name,
+      data.designation,
+      data.phone,
+      data.isYouth ? 'হ্যাঁ' : 'না',
+      data.bloodGroup || '',
+      data.isGovtEmployee ? 'হ্যাঁ' : 'না',
+      data.govtStatus === 'retired' ? 'অবসরপ্রাপ্ত' : (data.isGovtEmployee ? 'কর্মরত' : ''),
+      data.govtDept || '',
+      data.address || '',
+      data.photo || ''
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({status: "error", error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      const copyLabel = document.getElementById('copyScriptText');
+      copyLabel.textContent = 'কপি হয়েছে!';
+      setTimeout(() => {
+        copyLabel.textContent = 'কপি করুন';
+      }, 2000);
+      showToast('কপি সম্পন্ন', 'আপডেট করা গুগল অ্যাপস স্ক্রিপ্ট কোডটি কপি করা হয়েছে।', 'success');
+    }
+
+    // Export Data as CSV (includes Govt & Pensioner fields)
+    function exportToCSV() {
+      if (members.length === 0) {
+        showToast('সতর্কতা', 'রপ্তানি করার মতো কোনো তথ্য নেই।', 'error');
+        return;
+      }
+
+      let csvContent = "\uFEFF";
+      csvContent += "আইডি,নাম,পেশা বা পদবী,মোবাইল নাম্বার,যুবসমাজ কিনা,রক্তের গ্রুপ,সরকারি চাকরিজীবী কিনা,স্থিতি (কর্মরত/অবসরপ্রাপ্ত),দপ্তর/মন্ত্রণালয়,ঠিকানা বা পাড়া\n";
+
+      members.forEach(m => {
+        const row = [
+          `"${m.id}"`,
+          `"${(m.name || '').replace(/"/g, '""')}"`,
+          `"${(m.designation || '').replace(/"/g, '""')}"`,
+          `"${m.phone}"`,
+          `"${m.isYouth ? 'হ্যাঁ' : 'না'}"`,
+          `"${m.bloodGroup || ''}"`,
+          `"${m.isGovtEmployee ? 'হ্যাঁ' : 'না'}"`,
+          `"${m.isGovtEmployee ? (m.govtStatus === 'retired' ? 'অবসরপ্রাপ্ত' : 'কর্মরত') : ''}"`,
+          `"${(m.govtDept || '').replace(/"/g, '""')}"`,
+          `"${(m.address || '').replace(/"/g, '""')}"`
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Jora_Dokkhinpara_Directory_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast('ডাউনলোড সফল', 'তথ্যসহ CSV ফাইল ডাউনলোড হয়েছে।', 'success');
+    }
+
+    // Modal Control Functions
+    function openAddModal() {
+      document.getElementById('addMemberModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('formName').focus();
+    }
+
+    function closeAddModal() {
+      document.getElementById('addMemberModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function openSheetModal() {
+      document.getElementById('sheetSetupModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSheetModal() {
+      document.getElementById('sheetSetupModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Toast Notification helper
+    let toastTimeout;
+    function showToast(title, message, type = 'success') {
       const toast = document.getElementById('toastNotification');
-      document.getElementById('toastTitle').innerText = title;
-      document.getElementById('toastMessage').innerText = msg;
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastTitle.textContent = title;
+      toastMsg.textContent = message;
+
+      if (type === 'error') {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-sm"></i>';
+      } else {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<i class="fa-solid fa-check text-sm"></i>';
+      }
+
       toast.classList.remove('translate-y-24', 'opacity-0');
-      setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3000);
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
     }
 
-    // পেজ লোড হলে সরাসরি শিট থেকে ডাটা আনা
-    window.addEventListener('DOMContentLoaded', () => {
-      fetchSheetData();
-    });
+    // Helper to sanitize HTML display
+    function escapeHtml(string) {
+      if (!string) return '';
+      return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
   </script>
 </body>
 </html>
