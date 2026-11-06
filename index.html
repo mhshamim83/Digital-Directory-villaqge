@@ -1378,4 +1378,115 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify({
             action: "delete",
-            rowInde
+            rowIndex: parseInt(rowIndex, 10),
+            name: member.name
+          })
+        });
+
+        showToast("মুছে ফেলা হয়েছে", "তথ্যটি গুগল শিট থেকে সফলভাবে মুছে গেছে।", "success");
+        setTimeout(() => fetchSheetData(false), 1300);
+      } catch (err) {
+        showToast("ত্রুটি", "মুছে ফেলতে সমস্যা হয়েছে।", "error");
+      }
+    }
+
+    // ================= GOOGLE SHEET SETUP & APPS SCRIPT COPY =================
+    // CSV Export
+    function exportToCSV() {
+      if (!membersList.length) {
+        showToast("ডাটা নেই", "ডাউনলোড করার মতো কোনো তথ্য তালিকায় নেই।", "error");
+        return;
+      }
+      const headers = ["Name", "Designation", "Phone", "IsYouth", "BloodGroup", "IsGovt", "GovtStatus", "GovtDept", "Address", "Status", "DeathDate"];
+      const rows = membersList.map(m => [
+        `"${(m.name || "").replace(/"/g, '""')}"`,
+        `"${(m.designation || "").replace(/"/g, '""')}"`,
+        `"${(m.phone || "").replace(/"/g, '""')}"`,
+        m.isYouth ? "হ্যাঁ" : "না",
+        `"${m.bloodGroup || ""}"`,
+        m.isGovt ? "হ্যাঁ" : "না",
+        `"${m.govtStatus || ""}"`,
+        `"${(m.govtDept || "").replace(/"/g, '""')}"`,
+        `"${(m.address || "").replace(/"/g, '""')}"`,
+        `"${m.status || "জীবিত"}"`,
+        `"${m.deathDate || ""}"`
+      ]);
+
+      const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "জোড়া_দক্ষিণপাড়া_ডিরেক্টরি.csv";
+      link.click();
+      showToast("ডাউনলোড শুরু", "এক্সেল/CSV ফাইলটি ডাউনলোড হয়েছে।", "success");
+    }
+
+    // Lightbox & Utilities
+    function openPhotoLightbox(src, caption) {
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("lightboxCaption").innerText = caption || "";
+      document.getElementById("photoLightbox").classList.remove("hidden");
+    }
+
+    function closePhotoLightbox() {
+      document.getElementById("photoLightbox").classList.add("hidden");
+    }
+
+    function copyPhoneToClipboard(phone) {
+      copyTextFallback(phone);
+      showToast("কপি হয়েছে", `মোবাইল নম্বর (${phone}) কপি করা হয়েছে।`, "success");
+    }
+
+    function copyTextFallback(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    function toBanglaNum(n) {
+      const digits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+      return (n || 0).toString().replace(/\d/g, d => digits[d]);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showToast(title, message, type = "success") {
+      const toast = document.getElementById("toastNotification");
+      const iconBox = document.getElementById("toastIconBox");
+      const icon = document.getElementById("toastIcon");
+
+      document.getElementById("toastTitle").innerText = title;
+      document.getElementById("toastMessage").innerText = message;
+
+      if (type === "error") {
+        iconBox.className = "w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0";
+        icon.className = "fa-solid fa-circle-exclamation text-base";
+      } else if (type === "info") {
+        iconBox.className = "w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0";
+        icon.className = "fa-solid fa-circle-info text-base";
+      } else {
+        iconBox.className = "w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+        icon.className = "fa-solid fa-circle-check text-base";
+      }
+
+      toast.classList.remove("translate-y-28", "opacity-0");
+      setTimeout(() => {
+        toast.classList.add("translate-y-28", "opacity-0");
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
